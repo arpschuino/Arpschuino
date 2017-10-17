@@ -19,7 +19,7 @@
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
 
-  $Id: wiring.h 602 2009-06-01 08:32:11Z dmellis $
+  $Id: wiring.h 1073 2010-08-17 21:50:41Z dmellis $
 
   Modified 28-08-2009 for attiny84 R.Wiersma
   Modified 14-108-2009 for attiny45 Saposoft
@@ -29,14 +29,13 @@
 #define Wiring_h
 
 #include <avr/io.h>
+#include <stdlib.h>
+
 #include "binary.h"
+#include "core_build_options.h"
 
 #ifdef __cplusplus
 extern "C"{
-#endif
-
-#ifndef ARDUINO
-#define ARDUINO 18
 #endif
 
 #define HIGH 0x1
@@ -44,7 +43,8 @@ extern "C"{
 
 #define INPUT 0x0
 #define OUTPUT 0x1
-
+#define INPUT_PULLUP 0x2
+  
 #define true 0x1
 #define false 0x0
 
@@ -60,16 +60,70 @@ extern "C"{
 #define LSBFIRST 0
 #define MSBFIRST 1
 
-// interrupts
-	// #define LOW  0x0
 #define CHANGE 1
 #define FALLING 2
 #define RISING 3
-// end interrupts
-	
+
+/* rmv or fix
+#if defined(__AVR_ATmega1280__)
+#define INTERNAL1V1 2
+#define INTERNAL2V56 3
+#else
 #define INTERNAL 3
+#endif
 #define DEFAULT 1
 #define EXTERNAL 0
+*/
+
+/* rmv
+analogReference constants for ATmega168.  These are NOT correct for the ATtiny84 nor for the ATtiny85.  The correct values are below.
+
+// Internal 1.1V Voltage Reference with external capacitor at AREF pin 
+#define INTERNAL 3  
+
+// AVCC with external capacitor at AREF pin 
+#define DEFAULT 1   
+
+// AREF, Internal Vref turned off 
+#define EXTERNAL 0  
+*/
+
+
+#if defined( __AVR_ATtinyX313__ )
+
+#define DEFAULT (0)
+
+#elif defined( __AVR_ATtinyX4__ )
+
+// VCC used as analog reference, disconnected from PA0 (AREF)
+#define DEFAULT (0)
+
+// External voltage reference at PA0 (AREF) pin, internal reference turned off
+#define EXTERNAL (1)
+
+// Internal 1.1V voltage reference
+#define INTERNAL (2)
+
+#elif defined( __AVR_ATtinyX5__ )
+
+// X 0 0 VCC used as Voltage Reference, disconnected from PB0 (AREF).
+#define DEFAULT (0)
+
+// X 0 1 External Voltage Reference at PB0 (AREF) pin, Internal Voltage Reference turned off.
+#define EXTERNAL (1)
+
+// 0 1 0 Internal 1.1V Voltage Reference.
+#define INTERNAL (2)
+#define INTERNAL1V1 INTERNAL
+
+// 1 1 1 Internal 2.56V Voltage Reference with external bypass capacitor at PB0 (AREF) pin(1).
+#define INTERNAL2V56 (7)
+
+// An alternative for INTERNAL2V56 is (6) ...
+// 1 1 0 Internal 2.56V Voltage Reference without external bypass capacitor, disconnected from PB0 (AREF)(1).
+
+#endif
+
 
 // undefine stdlib's abs if encountered
 #ifdef abs
@@ -80,7 +134,6 @@ extern "C"{
 #define max(a,b) ((a)>(b)?(a):(b))
 #define abs(x) ((x)>0?(x):-(x))
 #define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
-#define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
 #define radians(deg) ((deg)*DEG_TO_RAD)
 #define degrees(rad) ((rad)*RAD_TO_DEG)
 #define sq(x) ((x)*(x))
@@ -89,8 +142,8 @@ extern "C"{
 #define noInterrupts() cli()
 
 #define clockCyclesPerMicrosecond() ( F_CPU / 1000000L )
-#define clockCyclesToMicroseconds(a) ( (a) / clockCyclesPerMicrosecond() )
-#define microsecondsToClockCycles(a) ( (a) * clockCyclesPerMicrosecond() )
+#define clockCyclesToMicroseconds(a) ( ((a) * 1000L) / (F_CPU / 1000L) )
+#define microsecondsToClockCycles(a) ( ((a) * (F_CPU / 1000L)) / 1000L )
 
 #define lowByte(w) ((uint8_t) ((w) & 0xff))
 #define highByte(w) ((uint8_t) ((w) >> 8))
@@ -107,6 +160,7 @@ typedef unsigned int word;
 typedef uint8_t boolean;
 typedef uint8_t byte;
 
+void initToneTimer(void);
 void init(void);
 
 void pinMode(uint8_t, uint8_t);
@@ -116,20 +170,14 @@ int analogRead(uint8_t);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t, int);
 
-//No Serial to begin with
-//void beginSerial(long);
-//void serialWrite(unsigned char);
-//int serialAvailable(void);
-//int serialRead(void);
-//void serialFlush(void);
-
 unsigned long millis(void);
 unsigned long micros(void);
 void delay(unsigned long);
 void delayMicroseconds(unsigned int us);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 
-void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, byte val);
+void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
+uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
 
 void attachInterrupt(uint8_t, void (*)(void), int mode);
 void detachInterrupt(uint8_t);

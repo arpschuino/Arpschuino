@@ -45,17 +45,14 @@
 //                           +----+
 
 ////Definition des pin de sortie//////////////////////
-#define Arp0 (0)
-#define Arp1 (1)
-#define Arp2 (2)
-#define Arp3 (3)
-#define Arp4 (5)
-#define Arp5 (7)
-#define Arp6 (8)
-#define Arp7 (9)
-#define Arp8 (10)
-#define ArpSDA (6)
-#define ArpSCL (4)
+#define ArpSDA (18)
+#define ArpSCL (19)
+#define Arp0 (3)
+#define Arp1 (5)
+#define Arp2 (6)
+#define Arp3 (9)
+#define Arp4 (10)
+#define Arp5 (11)
 //////////////////////////////////////////////////////////
 
 const static uint8_t A0 = 0;
@@ -64,6 +61,8 @@ const static uint8_t A2 = 2;
 const static uint8_t A3 = 3;
 const static uint8_t A4 = 5;
 const static uint8_t A5 = 7;
+const static uint8_t A6 = 8;
+const static uint8_t A7 = 9;
 
 #define digitalPinToPCICR(p)    ( ((p) >= 0 && (p) <= 10) ? (&GIMSK) : ((uint8_t *)0) )
 #define digitalPinToPCICRbit(p) ( ((p) <= 7) ? PCIE0 : PCIE1 )

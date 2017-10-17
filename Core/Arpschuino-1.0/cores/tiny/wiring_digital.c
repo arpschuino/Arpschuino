@@ -22,25 +22,45 @@
   $Id: wiring.c 248 2007-02-03 15:36:30Z mellis $
 
   Modified 28-08-2009 for attiny84 R.Wiersma
-  Modified 14-108-2009 for attiny45 Saposoft
+  Modified 14-10-2009 for attiny45 Saposoft
 */
 
 #include "wiring_private.h"
 #include "pins_arduino.h"
+#include "core_pins.h"
+#include "core_timers.h"
+#include "PwmTimer.h"
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
 	uint8_t bit = digitalPinToBitMask(pin);
 	uint8_t port = digitalPinToPort(pin);
-	volatile uint8_t *reg;
+	volatile uint8_t *reg, *out;
 
 	if (port == NOT_A_PIN) return;
 
 	// JWS: can I let the optimizer do this?
 	reg = portModeRegister(port);
+  out = portOutputRegister(port);
 
-	if (mode == INPUT) *reg &= ~bit;
-	else *reg |= bit;
+	if (mode == INPUT) { 
+		uint8_t oldSREG = SREG;
+    cli();
+		*reg &= ~bit;
+    *out &= ~bit;
+		SREG = oldSREG;
+	} else if (mode == INPUT_PULLUP) {
+    uint8_t oldSREG = SREG;
+    cli();
+    *reg &= ~bit;
+    *out |= bit;
+    SREG = oldSREG;
+	} else {
+		uint8_t oldSREG = SREG;
+    cli();
+		*reg |= bit;
+		SREG = oldSREG;
+	}
 }
 
 // Forcing this inline keeps the callers from having to push their own stuff
@@ -50,21 +70,51 @@ void pinMode(uint8_t pin, uint8_t mode)
 // But shouldn't this be moved into pinMode? Seems silly to check and do on
 // each digitalread or write.
 //
-//Only 2 PWM's
-static inline void turnOffPWM(uint8_t timer) __attribute__ ((always_inline));
-static inline void turnOffPWM(uint8_t timer)
+__attribute__((always_inline)) static inline void turnOffPWM( uint8_t pin )
 {
-	if (timer == TIMER1) cbi(TCCR1, COM1A1);
-	if (timer == TIMER1) cbi(TCCR1, COM1B1);
-	if (timer == TIMER0A) cbi(TCCR0A, COM0A1);
-	if (timer == TIMER0B) cbi(TCCR0A, COM0B1);
-	if (timer == TIMER0A) cbi(TCCR0A, COM0A0);
-	if (timer == TIMER0B) cbi(TCCR0A, COM0B0);
+  #if CORE_PWM_COUNT >= 1
+    if ( pin == CORE_PWM0_PIN )
+    {
+      Pwm0_SetCompareOutputMode( Pwm0_Disconnected );
+    }
+    else
+  #endif
+
+  #if CORE_PWM_COUNT >= 2
+    if ( pin == CORE_PWM1_PIN )
+    {
+      Pwm1_SetCompareOutputMode( Pwm1_Disconnected );
+    }
+    else
+  #endif
+
+  #if CORE_PWM_COUNT >= 3
+    if ( pin == CORE_PWM2_PIN )
+    {
+      Pwm2_SetCompareOutputMode( Pwm2_Disconnected );
+    }
+    else
+  #endif
+
+  #if CORE_PWM_COUNT >= 4
+    if ( pin == CORE_PWM3_PIN )
+    {
+      Pwm3_SetCompareOutputMode( Pwm3_Disconnected );
+    }
+    else
+  #endif
+
+  #if CORE_PWM_COUNT >= 5
+  #error Only 4 PWM pins are supported.  Add more conditions.
+  #endif
+
+    {
+    }
+
 }
 
 void digitalWrite(uint8_t pin, uint8_t val)
 {
-	uint8_t timer = digitalPinToTimer(pin);
 	uint8_t bit = digitalPinToBitMask(pin);
 	uint8_t port = digitalPinToPort(pin);
 	volatile uint8_t *out;
@@ -73,17 +123,25 @@ void digitalWrite(uint8_t pin, uint8_t val)
 
 	// If the pin that support PWM output, we need to turn it off
 	// before doing a digital write.
-	if (timer != NOT_ON_TIMER) turnOffPWM(timer);
+  turnOffPWM( pin );
 
 	out = portOutputRegister(port);
 
-	if (val == LOW) *out &= ~bit;
-	else *out |= bit;
+	if (val == LOW) {
+		uint8_t oldSREG = SREG;
+    cli();
+		*out &= ~bit;
+		SREG = oldSREG;
+	} else {
+		uint8_t oldSREG = SREG;
+    cli();
+		*out |= bit;
+		SREG = oldSREG;
+	}
 }
 
 int digitalRead(uint8_t pin)
 {
-	uint8_t timer = digitalPinToTimer(pin);
 	uint8_t bit = digitalPinToBitMask(pin);
 	uint8_t port = digitalPinToPort(pin);
 
@@ -91,7 +149,7 @@ int digitalRead(uint8_t pin)
 
 	// If the pin that support PWM output, we need to turn it off
 	// before getting a digital reading.
-	if (timer != NOT_ON_TIMER) turnOffPWM(timer);
+  turnOffPWM( pin );
 
 	if (*portInputRegister(port) & bit) return HIGH;
 	return LOW;
