@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "name": "Arpschuino",
+      "name": "arpschuino",
       "maintainer": "Anton Langhoff",
       "websiteURL": "http://www.arpschuino.fr",
       "email": " arpschuino@gmx.fr",
@@ -10,15 +10,15 @@
       },
       "platforms": [
         {
-          "name": "Arpschuino",
+          "name": "arpschuino",
           "architecture": "avr",
           "version": "1.0.0",
           "category": "Contributed",
           "help": {
-            "online": ""
+            "online": "https://www.arpschuino.fr/documentation.php"
           },
-          "url": "https://github.com/AntonLanghoff/Arpschuino/blob/master/Core/Arpschuino-1.0.zip",
-          "archiveFileName": "Arpschuino1.0.zip",
+          "url": "https://github.com/AntonLanghoff/Arpschuino/raw/master/Core/Arpschuino-1.0.zip",
+          "archiveFileName": "Arpschuino-1.0.zip",
           "checksum": "SHA-256:4cae21e0823047e046b0e092e373ff42b376cff0db7b01067269ec27e696cbbd",
           "size": "35152",
           "boards": [
@@ -42,7 +42,7 @@
               "version": "6.0.1-arduino5"
             }
           ]
-        },
+        }
       ],
       "tools": []
     }
