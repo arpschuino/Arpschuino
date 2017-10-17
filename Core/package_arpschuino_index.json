@@ -1,0 +1,50 @@
+{
+  "packages": [
+    {
+      "name": "Arpschuino",
+      "maintainer": "Anton Langhoff",
+      "websiteURL": "http://www.arpschuino.fr",
+      "email": " arpschuino@gmx.fr",
+      "help": {
+        "online": "https://www.arpschuino.fr/documentation.php"
+      },
+      "platforms": [
+        {
+          "name": "Arpschuino",
+          "architecture": "avr",
+          "version": "1.0.0",
+          "category": "Contributed",
+          "help": {
+            "online": ""
+          },
+          "url": "https://github.com/AntonLanghoff/Arpschuino/Core/Arpschuino1.0.zip",
+          "archiveFileName": "Arpschuino1.0.zip",
+          "checksum": "SHA-256:4cae21e0823047e046b0e092e373ff42b376cff0db7b01067269ec27e696cbbd",
+          "size": "41617",
+          "boards": [
+            {"name": "Arpschuino"},
+            {"name": "ArpdressBoard"}
+			{"name": "GradaLabs"}
+			{"name": "ArpSensors"}
+			{"name": "ArpSensorsRF"}
+			{"name": "Wilulu"}
+
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "4.8.1-arduino5"
+            },
+            {
+              "packager": "arduino",
+              "name": "avrdude",
+              "version": "6.0.1-arduino5"
+            }
+          ]
+        },
+      ],
+      "tools": []
+    }
+  ]
+}
