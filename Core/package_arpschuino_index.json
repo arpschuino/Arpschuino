@@ -4,13 +4,13 @@
       "name": "arpschuino",
       "maintainer": "Anton Langhoff",
       "websiteURL": "http://www.arpschuino.fr",
-      "email": " arpschuino@gmx.fr",
+      "email": "arpschuino@gmx.fr",
       "help": {
         "online": "https://www.arpschuino.fr/documentation.php"
       },
       "platforms": [
         {
-          "name": "arpschuino",
+          "name": "Arpschuino",
           "architecture": "avr",
           "version": "1.0.0",
           "category": "Contributed",
@@ -23,12 +23,11 @@
           "size": "35152",
           "boards": [
             {"name": "Arpschuino"},
-            {"name": "ArpdressBoard"}
-			{"name": "GradaLabs"}
-			{"name": "ArpSensors"}
-			{"name": "ArpSensorsRF"}
+            {"name": "ArpdressBoard"},
+			{"name": "GradaLabs"},
+			{"name": "ArpSensors"},
+			{"name": "ArpSensorsRF"},
 			{"name": "Wilulu"}
-
           ],
           "toolsDependencies": [
             {
@@ -44,7 +43,7 @@
           ]
         }
       ],
-      "tools": []
+      "tools":[]
     }
   ]
 }
