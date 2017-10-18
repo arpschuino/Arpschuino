@@ -11,10 +11,10 @@ Arpschuino.bootloader.extended_fuses=0x05
 Arpschuino.bootloader.unlock_bits=0x3F
 Arpschuino.bootloader.lock_bits=0xCF
 Arpschuino.bootloader.file=optiboot/optiboot_atmega328.hex
-Arpschuino.build.mcu=arduino:atmega328p
+Arpschuino.build.mcu=atmega328p
 Arpschuino.build.f_cpu=16000000L
 Arpschuino.build.core=arduino:arduino
-Arpschuino.build.board=arduino:AVR_UNO
+Arpschuino.build.board=AVR_UNO
 Arpschuino.build.variant=arpschuino
 
 ##############################################################
@@ -31,11 +31,11 @@ GradLabs.bootloader.extended_fuses=0x05
 GradLabs.bootloader.unlock_bits=0x3F
 GradLabs.bootloader.lock_bits=0x0F
 GradLabs.bootloader.file=optiboot/optiboot_atmega328.hex
-GradLabs.build.mcu=arduino:atmega328p
+GradLabs.build.mcu=atmega328p
 GradLabs.build.f_cpu=16000000L
+GradLabs.build.board=AVR_UNO
 GradLabs.build.core=arduino:arduino
-GradLabs.build.board=arduino:AVR_UNO
-GradLabs.build.variant=arpschuino
+GradLabs.build.variant=gradalabs
 ##############################################################
 
 arpsensors.name=arpsensors
