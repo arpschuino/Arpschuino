@@ -1,4 +1,4 @@
-name=Arpschuino Board
+name=ATtiny Microcontrollers
 
 tools.avrdude.path={runtime.tools.avrdude.path}
 tools.avrdude.erase.params.verbose=-v -v -v -v

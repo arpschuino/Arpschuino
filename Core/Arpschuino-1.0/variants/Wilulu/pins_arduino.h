@@ -23,8 +23,6 @@
 
   Modified 28-08-2009 for attiny84 R.Wiersma
   Modified 09-10-2009 for attiny45 A.Saporetti
-  
-  Modified xx-05-2016 for arpschuino-arpsensors J.Bouault
 */
 
 #ifndef Pins_Arduino_h
@@ -44,25 +42,23 @@
 //  PWM        (D  6)  PA6  7|    |8   PA5  (D  5)        PWM
 //                           +----+
 
-////Definition des pin de sortie//////////////////////
-#define WiluluAdress0 (0)
-#define WiluluAdress1 (1)
-#define WiluluAdress2 (2)
-#define WiluluAdress3 (3)
-#define WiluluOUT (7)
-#define LED_BUILTIN (10)
-#define ArpSDA (6)
-#define ArpSCL (4)
-//////////////////////////////////////////////////////////
-
 const static uint8_t A0 = 0;
 const static uint8_t A1 = 1;
 const static uint8_t A2 = 2;
 const static uint8_t A3 = 3;
-const static uint8_t A4 = 5;
-const static uint8_t A5 = 7;
-const static uint8_t A6 = 8;
-const static uint8_t A7 = 9;
+const static uint8_t A4 = 4;
+const static uint8_t A5 = 5;
+const static uint8_t A6 = 6;
+const static uint8_t A7 = 7;
+
+const static uint8_t ArpSDA = 6;
+const static uint8_t ArpSCL = 4;
+const static uint8_t WiluluAdress0 = 0;
+const static uint8_t WiluluAdress1 = 1;
+const static uint8_t WiluluAdress2 = 2;
+const static uint8_t WiluluAdress3 = 3;
+const static uint8_t WiluluOUT = 7;
+
 
 #define digitalPinToPCICR(p)    ( ((p) >= 0 && (p) <= 10) ? (&GIMSK) : ((uint8_t *)0) )
 #define digitalPinToPCICRbit(p) ( ((p) <= 7) ? PCIE0 : PCIE1 )
@@ -143,3 +139,4 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 #endif
 
 #endif
+

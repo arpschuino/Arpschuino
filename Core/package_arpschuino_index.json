@@ -19,8 +19,8 @@
           },
           "url": "https://github.com/AntonLanghoff/Arpschuino/raw/master/Core/Arpschuino-1.0.zip",
           "archiveFileName": "Arpschuino-1.0.zip",
-          "checksum": "SHA-256:0f374d263ea3918b517d7466a0ebdf3e34db7cded7c8a2ed38fd1bdca280fb77",
-          "size": "80704",
+          "checksum": "SHA-256:088a43acdffcc2ff64bb7a5161b6952d7c10e8b485b65b147dea85473df8a7e0",
+          "size": "6333890",
           "boards": [
             {"name": "Arpschuino"},
             {"name": "ArpdressBoard"},
