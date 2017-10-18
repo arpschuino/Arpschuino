@@ -1,5 +1,5 @@
 # Arpschuino
-Library and Core Files for Arpschuino Boards
+This repo unify Library and Core Files for Arpschuino Boards
 
 # Install the core files
 Open the preferences dialog in the Arduino software.
