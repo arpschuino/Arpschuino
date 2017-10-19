@@ -762,7 +762,7 @@ void rf12_configDump () {
     uint16_t freq = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4));
 
     // " A i1 g178 @ 868 MHz "
-    Serial.print(' ');
+    /*Serial.print(' ');
     Serial.print((char) ('@' + (nodeId & RF12_HDR_MASK)));
     Serial.print(" i");
     Serial.print(nodeId & RF12_HDR_MASK);
@@ -790,7 +790,7 @@ void rf12_configDump () {
         Serial.print(" x");
         Serial.print(flags & 0x03);
     }
-    Serial.println();
+    Serial.println();*/
 }
 
 /// @deprecated Please switch over to rf12_configSilent() and rf12_configDump().

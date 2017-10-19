@@ -5,6 +5,8 @@
 //66 circuit max
 
 #include <lib_dmx.h>   // pour la reception dmx
+#include <JeeLib.h>
+
 #define    DMX512     (0) 
 #define address (1) //adresse de reception dmx
 #define nbre_circuits (66) //nombre de circuit dmx reçu depuis l'adresse
@@ -12,7 +14,6 @@ byte NODEID = 1;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
 
-#include <ArpRFLib.h>
 
 boolean var_led=0;
 byte ledPin[2]={5,6};

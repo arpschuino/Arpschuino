@@ -1025,7 +1025,7 @@ bool DHTxx::reading (int& temp, int &humi, bool precise) {
   sei();
 
 #if DEBUG_DHT
-  Serial.print("DHT");
+  /*Serial.print("DHT");
   for (byte i = 7; i < 48; ++i) {
     Serial.print(' ');
     Serial.print(times[i]);
@@ -1039,7 +1039,7 @@ bool DHTxx::reading (int& temp, int &humi, bool precise) {
   Serial.print(" : ");
   byte s = data[1] + data[2] + data[3] + data[4];
   Serial.print(s, HEX);
-  Serial.println();
+  Serial.println();*/
 #endif
   
   byte sum = data[1] + data[2] + data[3] + data[4];
@@ -1140,7 +1140,7 @@ void Sleepy::powerDown () {
 
 /// This method waits Serial to send data via UART before powering down.
 void Sleepy::flushAndPowerDown () {
-    Serial.flush();
+  //  Serial.flush();
     powerDown();
 }
 
@@ -1257,7 +1257,7 @@ void Scheduler::timer(byte task, word tenths) {
 void Scheduler::cancel(byte task) {
     tasks[task] = ~0;
 }
-
+/*
 #ifdef Stream_h // only available in recent Arduino IDE versions
 
 InputParser::InputParser (byte* buf, byte size, Commands* ctab, Stream& stream)
@@ -1392,3 +1392,4 @@ InputParser& InputParser::operator >> (const char*& v) {
 }
 
 #endif // Stream_h
+*/

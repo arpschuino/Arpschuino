@@ -17,15 +17,54 @@ arpsensorsRF 0 >> A0, D0, Aref ......accelero X
 #define nbr_analog 3
 const byte analogIn [nbr_analog] ={Arp0,Arp1,Arp2};
 int sensVal[nbr_analog]={0};  //les valeurs analogiques a renvoyer
+
+/////////////////////capa///////////////////////////////////
+#define nbr_dig 3
+const byte capacitivePin [nbr_dig]={Arp3,Arp4,Arp5};
+///////////////////////////////////////////////////////////
+//////////////////////////////////////
+void read_sensor()
+{
+  capa ();
+  accelero ();
+}
+///////////////////////////////// R F 12 /////////////////////////
+#include <ArpRFLib.h>
+#define ID 2//  unique pour chaque carte 2 droite, 3 pour gauche,etc...
+#define NETWORKID       77  //l'id du reseau commun pour toute les cartes
+#define GATEWAYID     1 //l'id de la carte qui sert de gateway
+int freq = RF12_868MHZ; //la frequence de l'emeteur
+
+typedef struct {
+  byte node;
+  int val[nbr_analog + nbr_dig];
+} Payload;
+
+Payload payload;
+
+void setup () {
+
+  payload.node=ID;
+  delay(300);
+  rf12_initialize(payload.node, freq, NETWORKID);
+}
+
+void loop () {
+     read_sensor();
+  if (rf12_recvDone() && rf12_crc == 0 && rf12_len == 0 && RF12_WANTS_ACK) {
+
+    // start transmission
+    rf12_sendStart(RF12_ACK_REPLY, &payload, sizeof payload);
+  }
+}
+
 void accelero ()
 {
   for(byte i=0;i<nbr_analog;i++){         //lecture des analogs 
     payload.val[nbr_dig + i]=analogRead(analogIn[i]);//ecriture des analogs
   }  
 }
-/////////////////////capa///////////////////////////////////
-#define nbr_dig 3
-const byte capacitivePin [nbr_dig]={Arp3,Arp4,Arp5};
+
 void capa ()
 {   
     for(byte i=0; i<nbr_dig ;i++)
@@ -39,7 +78,7 @@ void capa ()
         }       
     }
 }
-////////////////////////////////////////////////////////////
+
 // readCapacitivePin
 //  Input: Arduino pin number
 //  Output: A number, from 0 to 17 expressing
@@ -105,39 +144,4 @@ uint8_t readCapacitivePin(int pinToMeasure) {
   *ddr  |= bitmask;
 
   return cycles;
-}
-//////////////////////////////////////
-void read_sensor()
-{
-  capa ();
-  accelero ();
-}
-///////////////////////////////// R F 12 /////////////////////////
-#include <ArpRFLib.h>
-#define ID 2//  unique pour chaque carte 2 droite, 3 pour gauche,etc...
-#define NETWORKID       77  //l'id du reseau commun pour toute les cartes
-#define GATEWAYID     1 //l'id de la carte qui sert de gateway
-int freq = RF12_868MHZ; //la frequence de l'emeteur
-
-typedef struct {
-  byte node;
-  int val[nbr_analog + nbr_dig];
-} Payload;
-
-Payload payload;
-
-void setup () {
-
-  payload.node=ID;
-  delay(300);
-  rf12_initialize(payload.node, freq, NETWORKID);
-}
-
-void loop () {
-     read_sensor();
-  if (rf12_recvDone() && rf12_crc == 0 && rf12_len == 0 && RF12_WANTS_ACK) {
-
-    // start transmission
-    rf12_sendStart(RF12_ACK_REPLY, &payload, sizeof payload);
-  }
 }

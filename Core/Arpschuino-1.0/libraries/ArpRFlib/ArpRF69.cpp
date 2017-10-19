@@ -149,8 +149,8 @@ void RF69::sleep (bool off) {
 }
 
 // References to the RF12 driver above this line will generate compiler errors!
-#include <RF69_compat.h>
-#include <RF12.h>
+#include "RF69_compat.h"
+#include "ArpRF12.h"
 
 void RF69::configure_compat () {
     initRadio(configRegs_compat);

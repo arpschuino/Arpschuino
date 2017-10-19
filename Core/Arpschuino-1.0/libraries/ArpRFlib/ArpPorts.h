@@ -715,7 +715,7 @@ public:
     const word* chromaCCT();
 };
 
-#ifdef Stream_h // only available in recent Arduino IDE versions
+/*#ifdef Stream_h  // only available in recent Arduino IDE versions
 
 /// Simple parser for input data and one-letter commands
 class InputParser {
@@ -756,5 +756,5 @@ private:
 };
 
 #endif // Stream_h
-
+*/
 #endif
