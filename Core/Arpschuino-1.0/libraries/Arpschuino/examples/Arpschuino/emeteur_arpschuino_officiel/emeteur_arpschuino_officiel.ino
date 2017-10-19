@@ -19,7 +19,7 @@
 #define nbre_circuits (66)//
 int adress=1;
 
-#include <RF12arpschuino.h>
+#include <ArpRFLib.h>
 byte NODEID = 1;  //Adresse RF unique pour chaque machine de 1 à 30
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12

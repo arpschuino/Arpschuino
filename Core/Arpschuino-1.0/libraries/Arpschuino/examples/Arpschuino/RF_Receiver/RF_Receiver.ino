@@ -3,6 +3,7 @@
 // puis revoie les données en DMX et écrit sur ses sorties
 //recepteur 3= main gauche / antenne rose
 //recepteur 2= main droite / antenne jaune
+#include "fonctions.h"
 #include <SoftPWMMaster_mod.h>
 //////////////////////////PATCH//////////////////////
 SOFTPWM_DEFINE_CHANNEL( 0, DDRD, PORTD, PORTD3); //D3
@@ -26,12 +27,13 @@ SOFTPWM_DEFINE_OBJECT( 16 );
 ////////////////////////////reception (RF12)//////////////////////////
 #include <ArpRFLib.h>
 
-#define NUM_NODES 2 // Definit le nombre d'émeteurs ArpSensorRF
-#define DATA_PER_NODE 6 
-#define NETWORKID       77  //l'id du reseau commun pour toute les cartes
-#define GATEWAYID     1 //l'id de la carte qui sert de gateway
-#define ID GATEWAYID//  unique pour chaque carte
+#define NUM_NODES (2) // Definit le nombre d'émeteurs ArpSensorRF
+#define DATA_PER_NODE (6) 
+#define NETWORKID (77)  //l'id du reseau commun pour toute les cartes
+#define GATEWAYID (1) //l'id de la carte qui sert de gateway
 int freq = RF12_868MHZ; //la frequence de l'emeteur
+int led_receive = Arp0;
+
 //////////////////////////PATCH////////////////////////////////////////////
 #define NBOUTPUT 12
 byte output [NBOUTPUT] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp11};
@@ -56,22 +58,20 @@ MilliTimer timer;
 int data [NUM_NODES*DATA_PER_NODE]={0};//={{0},{0}};
 
 ///////////////////////voyant reception////////////////////////////
-const byte led_temoin= LED_BUILTIN ;//voyant
-bool var_led =0;
-
+bool var_led_receive =0;
 unsigned long previousMillis = 0; 
 
 void setup () {
   
-  pinMode(led_temoin,OUTPUT);
-  digitalWrite(led_temoin,HIGH);//eteind la led
+  pinMode(led_receive,OUTPUT);
+  digitalWrite(led_receive,HIGH);//eteind la led
   arpdress_board();//prise en charge de l'arpdress board
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_tx_address(adress);      // dmx start address
   ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_tx(DMX512);  
   SoftPWM.begin(160);
-  rf12_initialize(payload.node, freq, NETWORKID);
+  rf12_initialize(GATEWAYID, freq, NETWORKID);
 
 }
 ////////////////ecrit les données reçues sur les sorties de l'arpschuino pour un fonctionnement standalone
@@ -129,117 +129,6 @@ void loop () {
 /////////////////////////fonctions//////////////////////////////////////////////////
 
 void voyant (){ 
-      digitalWrite  (led_temoin, var_led); 
-      var_led = !var_led;
+      digitalWrite(led_receive, var_led_receive); 
+      var_led_receive = !var_led_receive;
 }
-
-void arpdress_board(){
-///////////////presence de l'arpdress-board ? /////////////////////////
-  boolean arpdress = true;//variable pour indiquer la presence (ou non) de l'arpdress board 
-  if ((digitalRead (18) == HIGH) && (digitalRead (19) == HIGH)){
- 
-    char arpdress_code[8] = {'a','r','p','d','r','e','s','s'};
-    
-  //  PORTC = PORTC | 00110000; //pullup sur sda et slc
-    Wire.begin(); 
-    Wire.beginTransmission(ARPDRESS_BOARD);      // declare l'adresse de l'esclave qui va recevoir le code
-    Wire.write(0xB);                        // envoie la donnee
-    Wire.endTransmission();                  // arrete la transmission
-    
-  //  digitalWrite(led_temoin,LOW);
-    delay (500);
-  //  digitalWrite(led_temoin,HIGH);
-    
-    Wire.requestFrom(ARPDRESS_BOARD, 8);     // request 8 bytes from slave
-    
-    if (Wire.available()) {
-      char reponse[8] = {0};
-      delay(200);
-      for(int i=0; i<8; i++){
-        reponse[i] = Wire.read();
-      }
-      delay(200);
-      for(int i=0;i<8;i++) {
-         if (arpdress_code[i]!=reponse[i]) arpdress = false;
-      }
-    } 
-    
-    else {
-      arpdress = false;
-    }
-  } 
-  else {
-    arpdress = false;
-  }
-   /////////////////////////////////////////////////////////////////////////// 
-    byte unite = 0;
-    byte disaine = 0;
-    byte centaine = 0;
-    
-    if (arpdress == true){//si l'arpdress-board est branche et le port bas debranche
-  /////////////////////////I2C///////////////////////////////////////////
-  //////envoie requete///////
-      //Wire.begin(); 
-      Wire.beginTransmission(ARPDRESS_BOARD);      // declare l'adresse de l'esclave qui va recevoir le code
-      Wire.write(0xDE);                        // envoie la donnee
-      Wire.endTransmission();                  // arrete la transmission
-      delay(500);
-      
-      //////////on attend 3 byte//////////////////////////////////////////
-  
-      Wire.requestFrom(ARPDRESS_BOARD, 3);     // request 3 bytes from slave
-       
-      if (Wire.available()) {
-    
-         unite = Wire.read();
-         disaine = Wire.read();
-         centaine = Wire.read();
-         
-      //////////////////////////////EEPROM/////////////////////////////////
-         EEPROM.write(EEPROMaddr, centaine);
-         EEPROMaddr ++;
-         EEPROM.write(EEPROMaddr, disaine);
-         EEPROMaddr ++;
-         EEPROM.write(EEPROMaddr, unite);
-         bitWrite (PORTD,4,0);
-         delay (500);
-         bitWrite (PORTD,4,1);
-      }
-    }
-    else{
-       centaine = EEPROM.read(EEPROMaddr);
-       EEPROMaddr ++;
-       disaine = EEPROM.read(EEPROMaddr);
-       EEPROMaddr ++;
-       unite = EEPROM.read(EEPROMaddr);
-
-       bitWrite (PORTD,4,0);     //  digitalWrite(led_temoin,LOW);
-       delay (100);
-       bitWrite (PORTD,4,1);
-       delay (100);
-       bitWrite (PORTD,4,0);
-       delay (100);
-       bitWrite (PORTD,4,1);
-       
-    }
-    adress =(centaine*100)+(disaine*10)+(unite);
-    if(adress<513 && adress>0){}
-    else{
-       adress=default_adress;
-       for (int i=0;i<10;i++){
-          bitWrite (PORTD,4,0);
-          delay (500);
-          bitWrite (PORTD,4,1);
-          delay (500);
-       } 
-    }
-   
-    delay(1000);
-    
-    TWBR=0;
-    TWCR=0;//desactive l'I2C
-
-    pinMode(18, OUTPUT);
-    pinMode(19, OUTPUT);
-}
-

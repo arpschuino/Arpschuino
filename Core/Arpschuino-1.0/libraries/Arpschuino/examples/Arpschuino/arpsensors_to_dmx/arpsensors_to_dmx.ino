@@ -5,7 +5,7 @@
 
 //23/10/2015
 //3 arp
-
+#include "fonctions.h"
 #include <Wire.h>
 #define nbr_arpsensors 3
 
@@ -61,3 +61,4 @@ void decodeByte(){
     val_recues[6] = val_recues[6] >> 1;//on decale d'un bit pourlire la valeure suivante
   }
 }
+

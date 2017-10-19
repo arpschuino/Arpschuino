@@ -5,7 +5,7 @@
 //66 circuit max
 
 #include <lib_dmx.h>   // pour la reception dmx
-#include <JeeLib.h>
+#include <ArpRFLib.h>
 
 #define    DMX512     (0) 
 #define address (1) //adresse de reception dmx
