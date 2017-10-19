@@ -421,8 +421,8 @@ static void rf12_recvStart () {
     rf12_xfer(RF_RECEIVER_ON);
 }
 
-#include <RF12.h>
-#include <Ports.h> // needed to avoid a linker error :(
+#include <ArpRF12.h>
+#include <ArpPorts.h> // needed to avoid a linker error :(
 
 /// @details
 /// The timing of this function is relatively coarse, because SPI transfers are

@@ -1,5 +1,5 @@
 //reception JNode, ecriture dans l'arpower
-//OK, fonctionne avec [emeteur_Jlink_DMX]ou [emeteur_DMX_RF12]
+// work with "emeteur_arpschuino_officiel" or "emeteur_JLink_bridge_arp" as emiter
 //2 circuits gradués en PWM ardware + led de signal
 //modification frequence pwm
 //aucun fliker, moteurs silencieux
