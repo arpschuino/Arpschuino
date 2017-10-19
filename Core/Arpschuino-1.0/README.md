@@ -1,29 +1,23 @@
-ATtiny
+Arpschuino
 =======
 
-This repo contains a set of "cores" which adds support for some members of the Atmel AVR ATtiny family of microcontroller to the Arduino IDE.
+This repo contains a set of "cores" which adds support for the Arpschuino Board.
+www.arpschuino.fr
 
-The following micro controllers are supported:
+The following Boards are supported:
 
-- ATtiny 25 (8 pin)
-- ATtiny 45 (8 pin)
-- ATtiny 85 (8 pin)
-- ATtiny 24 (14 pin)
-- ATtiny 44 (14 pin)
-- ATtiny 84 (14 pin)
+- Arpschuino
+- Gradalabs
+- Arpsensors
+- ArpsensorsRF
+- Wilulu
 
 Installation and usage
 ----------------------
 
-Following the [installation guide](http://hlt.media.mit.edu/?p=1695) to install the core files and follow [this guide](http://hlt.media.mit.edu/?p=1706) to find out how to build the circuit.
-
-Also check out this video from Make which explains how to setup and use this core.
-
-http://www.youtube.com/watch?v=30rPt802n1k
-
-Which branch to use?
---------------------
-
-If you are using Arduino 1.6.x IDE the just use the master branch.
-
-If you are using Arduino 1.0.x IDE, then use the ide-1.0.x branch.
+To install it: 
+In the Arduino IDE (>=1.6.0) open the preference menu and in the board manager add the url : 
+https://raw.githubusercontent.com/AntonLanghoff/Arpschuino/master/Core/package_arpschuino_index.json
+Open your board manager, i will find the arpschuino Board. Just Install and can select your board in your board menu.
+This repo include all the lib used by the Arpschuino project: The Toni Merino DMX lib http://blog.deskontrol.net/arduino-four-universes-dmx-512-library/, A special version of the Jeelib named ArpRFlib, Adafruit_NeoPixel, Flash Lib utility, A mdified version of SoftPwm by Karistouf, and the TinyWire used for the I2C communication with Attiny processor.
+You will find all the Jacques Bouault exemple sketch for each board under a lib name Arpschuino in your exemple menu.

@@ -30,7 +30,6 @@ Then the green led blink quiquely while the board receive DMX.
 #define default_adress (1)//adresse DMX par defaut
 #define nbre_circuits (6)///////////////////
 #define    DMX512     (0)  
-
 // byte adress;
 int adress;//debug 26/12/16 pour les adresses au delas de 255...
 
@@ -59,7 +58,7 @@ void setup()
   //à commenter pour une adresse fixe
 
   ArduinoDmx0.attachRXInterrupt  (frame_received);
-  ArduinoDmx0.set_control_pin(7);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
+  ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_rx_address(adress);      // dmx start address
   ArduinoDmx0.set_rx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_rx(DMX512);        // starts universe 0 as rx, NEW Parameter DMX mode

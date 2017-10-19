@@ -53,7 +53,7 @@ void setup(){
     }
 ///////////////////////////////////////////////////////////////////////
   ArduinoDmx0.attachRXInterrupt  (frame_received);
-  ArduinoDmx0.set_control_pin(7);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
+  ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_rx_address(adress);      // dmx start address
   ArduinoDmx0.set_rx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_rx(DMX512);        // starts universe 0 as rx, NEW Parameter DMX mode

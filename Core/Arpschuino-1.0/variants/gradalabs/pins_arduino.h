@@ -46,6 +46,22 @@ const static uint8_t Arp3 = 9;
 const static uint8_t Arp4 = 10;
 const static uint8_t Arp5 = 11;
 
+const static uint8_t ArpDIP0 = 8;
+const static uint8_t ArpDIP1 = 12;
+const static uint8_t ArpDIP2 = 13;
+const static uint8_t ArpDIP3 = 14;
+const static uint8_t ArpDIP4 = 15;
+const static uint8_t ArpDIP5 = 16;
+const static uint8_t ArpDIP6 = 17;
+const static uint8_t ArpDIP7 = 18;
+const static uint8_t ArpDIP8 = 19;
+const static uint8_t ArpDIP9 = 7;
+const static uint8_t ArpDMXControl = 2;
+
+#define GRADALABS
+
+
+#define LED_BUILTIN 4
 //////////////////////////////////////////////////////////
 
 static const uint8_t SS   = 10;

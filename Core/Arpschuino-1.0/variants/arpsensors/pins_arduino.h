@@ -62,7 +62,7 @@ const static uint8_t Arp5 = 7;
 const static uint8_t Arp6 = 8;
 const static uint8_t Arp7 = 9;
 const static uint8_t Arp8 = 10;
-
+#define ARPSENSORS
 #define digitalPinToPCICR(p)    ( ((p) >= 0 && (p) <= 10) ? (&GIMSK) : ((uint8_t *)0) )
 #define digitalPinToPCICRbit(p) ( ((p) <= 7) ? PCIE0 : PCIE1 )
 #define digitalPinToPCMSK(p)    ( ((p) <= 7) ? (&PCMSK0) : (((p) <= 10) ? (&PCMSK1) : ((uint8_t *)0)) )

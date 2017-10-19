@@ -55,6 +55,8 @@ const static uint8_t Arp12 = 16;
 const static uint8_t Arp13 = 17;
 const static uint8_t Arp14 = 18;
 const static uint8_t Arp15 = 19;
+const static uint8_t ArpDMXControl = 7;
+
 //////////////////////////////////////////////////////////
 
 static const uint8_t SS   = 10;
@@ -65,6 +67,7 @@ static const uint8_t SCK  = 13;
 static const uint8_t SDA = 18;
 static const uint8_t SCL = 19;
 #define LED_BUILTIN 4
+#define ARPSCHUINO
 
 static const uint8_t A0 = 14;
 static const uint8_t A1 = 15;

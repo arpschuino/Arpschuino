@@ -51,6 +51,12 @@ const static uint8_t A5 = 5;
 const static uint8_t A6 = 6;
 const static uint8_t A7 = 7;
 
+const static uint8_t ARPRF12SCK = 4;
+const static uint8_t ARPRF12SDI = 5;
+const static uint8_t ARPRF12SD0 = 6;
+const static uint8_t ARPRF12NSEL = 9;
+const static uint8_t ARPRF12NIRQ = 8;
+
 const static uint8_t ArpSDA = 6;
 const static uint8_t ArpSCL = 4;
 const static uint8_t WiluluAdress0 = 0;
@@ -58,6 +64,8 @@ const static uint8_t WiluluAdress1 = 1;
 const static uint8_t WiluluAdress2 = 2;
 const static uint8_t WiluluAdress3 = 3;
 const static uint8_t WiluluOUT = 7;
+#define WILULU
+#define LED_BUILTIN 10
 
 
 #define digitalPinToPCICR(p)    ( ((p) >= 0 && (p) <= 10) ? (&GIMSK) : ((uint8_t *)0) )
