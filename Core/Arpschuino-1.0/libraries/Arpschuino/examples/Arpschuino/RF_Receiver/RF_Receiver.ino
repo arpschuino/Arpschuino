@@ -42,7 +42,7 @@ byte output [NBOUTPUT] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp1
 
 #include <lib_dmx.h>
 #define default_adress (1)//adresse DMX par defaut
-#define nbre_circuits (DATA_PER_NODE*NUM_NODES)//
+int nbre_circuits (DATA_PER_NODE*NUM_NODES)//
 #define    DMX512     (0)  
 int adress = default_adress;
 
@@ -66,6 +66,13 @@ void setup () {
   pinMode(led_receive,OUTPUT);
   digitalWrite(led_receive,HIGH);//eteind la led
   arpdress_board();//prise en charge de l'arpdress board
+
+  int debordement = adress+nbre_circuits-512;
+if(debordement>0)
+{
+  nbre_circuits = nbre_circuits-debordement;
+}
+
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_tx_address(adress);      // dmx start address
   ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels

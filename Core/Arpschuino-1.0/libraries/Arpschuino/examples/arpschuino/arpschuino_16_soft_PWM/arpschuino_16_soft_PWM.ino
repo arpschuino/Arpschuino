@@ -29,7 +29,7 @@ Then the green led blink quiquely while the board receive DMX.
 
 #include <lib_dmx.h>
 #define default_adress (1)//adresse DMX par defaut
-#define nbre_circuits (16)
+int nbre_circuits (16)
 #define    DMX512     (0) 
 
 #define __DEBUG_SOFTPWM__ 0
@@ -73,7 +73,12 @@ void setup(){
 
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
-  
+  int debordement = adress+nbre_circuits-512;
+if(debordement>0)
+{
+  nbre_circuits = nbre_circuits-debordement;
+}
+
   SoftPWM.begin(160);//NE FONCTIONNE PAS A 200// Ok 180
   
   ArduinoDmx0.attachRXInterrupt  (frame_received);

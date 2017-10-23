@@ -28,7 +28,7 @@ Then the green led blink quiquely while the board receive DMX.
 
 #include <lib_dmx.h>
 #define default_adress (1)//adresse DMX par defaut
-#define nbre_circuits (6)///////////////////
+int nbre_circuits (6)///////////////////
 #define    DMX512     (0)  
 // byte adress;
 int adress;//debug 26/12/16 pour les adresses au delas de 255...
@@ -40,11 +40,7 @@ byte output [nbre_circuits] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5};
 
 
 void setup()
-{
-  for(int i=0;i<=nbre_circuits;i++)
-   {pinMode(output[i], OUTPUT); }//
-  
- 
+{ 
   pinMode(4, OUTPUT);  //met la led verte (temoin) en output
   bitWrite (PORTD,4,1);// equivalent a digitalWrite(led_temoin,HIGH);
   
@@ -56,7 +52,13 @@ void setup()
 
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
-
+int debordement = adress+nbre_circuits-512;
+if(debordement>0)
+{
+  nbre_circuits = nbre_circuits-debordement;
+}
+  for(int i=0;i<=nbre_circuits;i++)
+   {pinMode(output[i], OUTPUT); }//
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_rx_address(adress);      // dmx start address

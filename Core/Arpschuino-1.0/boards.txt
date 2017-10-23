@@ -1,5 +1,5 @@
 ##############################################################
-Arpschuino.name=Arpschuino
+Arpschuino.name=arpschuino
 Arpschuino.upload.protocol=arduino
 Arpschuino.upload.tool=arduino:avrdude
 Arpschuino.upload.maximum_size=30720
@@ -20,24 +20,24 @@ Arpschuino.bootloader.file=optiboot/optiboot_atmega328.hex
 
 
 ##############################################################
-GradLabs.name=GradLabs
-GradLabs.upload.protocol=arduino
-GradLabs.upload.tool=arduino:avrdude
-GradLabs.upload.maximum_size=30720
-GradLabs.upload.maximum_data_size=2048
-GradLabs.upload.speed=115200
-GradLabs.bootloader.tool=arduino:avrdude
-GradLabs.bootloader.low_fuses=0xFF
-GradLabs.bootloader.high_fuses=0xDA
-GradLabs.bootloader.extended_fuses=0x05
-GradLabs.bootloader.unlock_bits=0x3F
-GradLabs.bootloader.lock_bits=0x0F
-GradLabs.build.mcu=atmega328p
-GradLabs.build.f_cpu=16000000L
-GradLabs.build.core=arduino:arduino
-GradLabs.build.board=AVR_ATmega328
-GradLabs.build.variant=GradLabs
-GradLabs.bootloader.file=optiboot/optiboot_atmega328.hex
+GradLaps.name=gradlaps
+GradLaps.upload.protocol=arduino
+GradLaps.upload.tool=arduino:avrdude
+GradLaps.upload.maximum_size=30720
+GradLaps.upload.maximum_data_size=2048
+GradLaps.upload.speed=115200
+GradLaps.bootloader.tool=arduino:avrdude
+GradLaps.bootloader.low_fuses=0xFF
+GradLaps.bootloader.high_fuses=0xDA
+GradLaps.bootloader.extended_fuses=0x05
+GradLaps.bootloader.unlock_bits=0x3F
+GradLaps.bootloader.lock_bits=0x0F
+GradLaps.build.mcu=atmega328p
+GradLaps.build.f_cpu=16000000L
+GradLaps.build.core=arduino:arduino
+GradLaps.build.board=AVR_ATmega328
+GradLaps.build.variant=gradalaps
+GradLaps.bootloader.file=optiboot/optiboot_atmega328.hex
 
 ##############################################################
 
@@ -56,6 +56,7 @@ arpsensors.bootloader.low_fuses=0xe2
 arpsensors.bootloader.high_fuses=0xdf
 arpsensors.bootloader.extended_fuses=0xff
 arpsensors.build.f_cpu=8000000L
+arpsensors.bootloader.file=empty/empty84at8.hex
 
 ##############################################################
 arpsensorsRF.name=arpsensorsRF
@@ -73,9 +74,10 @@ arpsensorsRF.bootloader.low_fuses=0xe2
 arpsensorsRF.bootloader.high_fuses=0xdf
 arpsensorsRF.bootloader.extended_fuses=0xff
 arpsensorsRF.build.f_cpu=8000000L
+arpsensorsRF.bootloader.file=empty/empty84at8.hex
 
 ##############################################################
-Wilulu.name=Wilulu
+Wilulu.name=wilulu
 Wilulu.bootloader.tool=arduino:avrdude
 Wilulu.bootloader.unlock_bits=0xff
 Wilulu.bootloader.lock_bits=0xff
@@ -90,6 +92,7 @@ Wilulu.bootloader.low_fuses=0xe2
 Wilulu.bootloader.high_fuses=0xdf
 Wilulu.bootloader.extended_fuses=0xff
 Wilulu.build.f_cpu=8000000L
+Wilulu.bootloader.file=empty/empty84at8.hex
 
 ##############################################################
 jee.name=Jeenode/Jeelink

@@ -34,7 +34,7 @@
 // #define OPTIMIZE_SPI 1  // uncomment this to write to the RFM12B @ 8 Mhz
 
 // pin change interrupts are currently only supported on ATmega328's
-// #define PINCHG_IRQ 1    // uncomment this to use pin-change interrupts
+     // uncomment this to use pin-change interrupts
 
 // maximum transmit / receive buffer: 3 header + data + 2 crc bytes
 #define RF_MAX   (RF12_MAXDATA + 5)
@@ -99,7 +99,8 @@
 #define SPI_SCK     1     // PB1, pin 9, Digital15
 
 #elif defined(ARPSCHUINO) 
-#define PINCHG_IRQ 1 
+#define PINCHG_IRQ 1
+//#define PINCHG_IRQ 1 
 #define RFM_IRQ     1    // arpschuino = 1
 #define SS_DDR      DDRB
 #define SS_PORT     PORTB
@@ -761,36 +762,7 @@ void rf12_configDump () {
     uint8_t flags = eeprom_read_byte(RF12_EEPROM_ADDR + 3);
     uint16_t freq = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4));
 
-    // " A i1 g178 @ 868 MHz "
-    /*Serial.print(' ');
-    Serial.print((char) ('@' + (nodeId & RF12_HDR_MASK)));
-    Serial.print(" i");
-    Serial.print(nodeId & RF12_HDR_MASK);
-    if (flags & 0x04)
-        Serial.print('*');
-    Serial.print(" g");
-    Serial.print(eeprom_read_byte(RF12_EEPROM_ADDR + 1));
-    Serial.print(" @ ");
-    uint8_t band = nodeId >> 6;
-    Serial.print(band == RF12_433MHZ ? 433 :
-                 band == RF12_868MHZ ? 868 :
-                 band == RF12_915MHZ ? 915 : 0);
-    Serial.print(" MHz");
-    if (flags & 0x04) {
-        Serial.print(" c1");
-    }
-    if (freq != 1600) {
-        Serial.print(" o");
-        Serial.print(freq);
-    }
-    if (flags & 0x08) {
-        Serial.print(" q1");
-    }
-    if (flags & 0x03) {
-        Serial.print(" x");
-        Serial.print(flags & 0x03);
-    }
-    Serial.println();*/
+  
 }
 
 /// @deprecated Please switch over to rf12_configSilent() and rf12_configDump().

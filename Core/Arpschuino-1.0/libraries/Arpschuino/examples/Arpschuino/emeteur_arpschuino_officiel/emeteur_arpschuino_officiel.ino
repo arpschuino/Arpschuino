@@ -16,7 +16,7 @@
 #include <lib_dmx.h>   // pour la recepionn dmx
 #define    DMX512     (0) 
 #define default_adress (1)//adresse par defaut
-#define nbre_circuits (66)//
+int nbre_circuits (66)//
 int adress=1;
 
 #include <ArpRFLib.h>
@@ -31,7 +31,12 @@ byte buffer_to_send[nbre_circuits];
 void setup() {
 
   arpdress_board();//prise en charge de l'arpdress board, à commenter pour une adresse fixe
-  
+  int debordement = adress+nbre_circuits-512;
+if(debordement>0)
+{
+  nbre_circuits = nbre_circuits-debordement;
+}
+
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(7);   // Arduino output pin for MAX485 input/output control (connect to MAX485-1 pins 2-3) 
   ArduinoDmx0.set_rx_address(adress);    // set tx start address

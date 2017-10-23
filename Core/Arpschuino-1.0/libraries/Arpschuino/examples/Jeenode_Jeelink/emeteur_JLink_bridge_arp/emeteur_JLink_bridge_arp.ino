@@ -9,18 +9,23 @@
 
 #define    DMX512     (0) 
 #define address (1) //adresse de reception dmx
-#define nbre_circuits (66) //nombre de circuit dmx reçu depuis l'adresse
+int nbre_circuits (66) //nombre de circuit dmx reçu depuis l'adresse
 byte NODEID = 1;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
-
 
 boolean var_led=0;
 byte ledPin[2]={5,6};
 byte buffer_to_send[nbre_circuits];
 
 void setup() {
-  
+
+  int debordement = adress+nbre_circuits-512;
+if(debordement>0)
+{
+  nbre_circuits = nbre_circuits-debordement;
+}
+
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(7);   // Arduino output pin for MAX485 input/output control (connect to MAX485-1 pins 2-3) 
   ArduinoDmx0.set_rx_address(address);    // set tx start address
