@@ -1,11 +1,13 @@
-//code permet d'envoyer en DMX les valeurs reçu par 3 arpsensors
-//a uploader dans l'apschuino (ou arduino)
-//test avec plusieurs arpsensors fonctionne avec 3 ;)
-//reception de 6 analogs et de 3 digitales
+/*
+officiel 28_10_17
+ecrit pour l'arpschuino  www.arpschuino.fr
+Ce code permet d'envoyer en DMX les valeurs reçu par 3 arpsensors
+a uploader dans l'apschuino (ou arduino)
+test avec plusieurs arpsensors fonctionne avec 3 ;)
+reception de 6 analogs et de 3 digitales pour chaque arpsensors
+*/
 
-//23/10/2015
-//3 arp
-#include "fonctions.h"
+#include <Arpschuino.h>
 #include <Wire.h>
 #define nbr_arpsensors 3
 
@@ -14,33 +16,27 @@ byte val_recues[7 * nbr_arpsensors];//les valeures recues
 byte buffer_to_send[9]={0};  //les valeurs a afficher
 
 #include <lib_dmx.h>
-#define default_adress (1)//adresse DMX par defaut
-int nbre_circuits (9 * nbr_arpsensors)
-#define    DMX512     (0) 
-int adress = default_adress;
+int nbre_circuits (9 * nbr_arpsensors);
+int adress;
 
-void setup(){
-arpdress_board();
-int debordement = adress+nbre_circuits-512;
-if(debordement>0)
+void setup()
 {
-  nbre_circuits = nbre_circuits-debordement;
+  arpdress_board();
+   
+  ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
+  ArduinoDmx0.set_tx_address(adress);      // dmx start address
+  ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
+  ArduinoDmx0.init_tx(DMX512);  
+    
+  Wire.begin();  
 }
 
-ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
-ArduinoDmx0.set_tx_address(adress);      // dmx start address
-ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
-ArduinoDmx0.init_tx(DMX512);  
-  
-Wire.begin();  
-}
 
 
-
-void loop(){
-  for(byte j=0;j<nbr_arpsensors;j++){
-  
-  //////envoie requete/////// 
+void loop()
+{
+  for(byte j=0;j<nbr_arpsensors;j++)
+  {//////envoie requete/////// 
       Wire.beginTransmission(SLAVE_ADDR[j]);      // déclare l'adresse de l'esclave qui va recevoir le code
       Wire.write(0xDE);                        // envoie la donnée
       Wire.endTransmission();                  // arrête la transmission 

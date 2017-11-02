@@ -42,7 +42,7 @@ byte output [NBOUTPUT] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp1
 
 #include <lib_dmx.h>
 #define default_adress (1)//adresse DMX par defaut
-int nbre_circuits (DATA_PER_NODE*NUM_NODES)//
+int nbre_circuits (DATA_PER_NODE*NUM_NODES);//
 #define    DMX512     (0)  
 int adress = default_adress;
 
