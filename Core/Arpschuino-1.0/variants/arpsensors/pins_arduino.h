@@ -46,10 +46,10 @@ const static uint8_t A0 = 0;
 const static uint8_t A1 = 1;
 const static uint8_t A2 = 2;
 const static uint8_t A3 = 3;
-const static uint8_t A4 = 4;
-const static uint8_t A5 = 5;
-const static uint8_t A6 = 6;
-const static uint8_t A7 = 7;
+const static uint8_t A4 = 5;
+const static uint8_t A5 = 7;
+const static uint8_t A6 = 6;//SDA
+const static uint8_t A7 = 4;//SCL
 
 const static uint8_t ArpSDA = 6;
 const static uint8_t ArpSCL = 4;
@@ -57,9 +57,9 @@ const static uint8_t Arp0 = 0;
 const static uint8_t Arp1 = 1;
 const static uint8_t Arp2 = 2;
 const static uint8_t Arp3 = 3;
-const static uint8_t Arp4 = 5;
-const static uint8_t Arp5 = 7;
-const static uint8_t Arp6 = 8;
+const static uint8_t Arp4 = 5;//pwm
+const static uint8_t Arp5 = 7;//pwm
+const static uint8_t Arp6 = 8;//pwm
 const static uint8_t Arp7 = 9;
 const static uint8_t Arp8 = 10;
 #define ARPSENSORS
