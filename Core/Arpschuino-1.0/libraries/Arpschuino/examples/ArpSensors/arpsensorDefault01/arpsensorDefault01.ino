@@ -1,15 +1,13 @@
 //code écris pour l'arpsensors: http://www.arpschuino.fr/arpsensors.php
 //1 ou plusieurs arpsensors (testé avec 4), esclave de l'arpschuino (fonctionne avec test_master012)
 //renvoie 7 bit, 6 valeures analogiques (0>255), un octet contenant les 3 digitales (0/1)
-//compile sous arduino 1.0.6 > 1.6.5
-// ajout du core attiny nécessaire pour compiler, http://highlowtech.org/?p=1695
-//clock = _mhz internal
+
 //necessite la library TinyWire : https://github.com/rambo/TinyWire/tree/master/TinyWireS
 //test avec 6 capteurs
-//fonctionne avec test_master012
+//fonctionne avec arpsensors_to_dmx/ino, arpsensors_to_serial01
 //
-//uploder avec arduino 1.0.6
 //23/10/2015
+
 
 //une source d'inspiration : http://kasey.fr/ATTiny-capteur-universel-en-I2C.html
 //ATtiny 44 ou 84
@@ -22,7 +20,8 @@
 byte byteRcvd;
 
 //PWMOUT Arp4, Arp5, ARP6 DIGITALONLY ARP7,ARP8
-byte analog[6]={Arp0,Arp1,Arp2,Arp3,Arp4,Arp5};//les 6 entrée analog
+byte analog[6]={A0,A1,A2,A3,A4,A5};
+//byte analog[6]={Arp0,Arp1,Arp2,Arp3,Arp4,Arp5};//les 6 entrée analog
 
 unsigned int sensVal[6]={0};  //les valeurs analogiques a renvoyer
 

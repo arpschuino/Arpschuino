@@ -1,5 +1,5 @@
 /* 
-officiel, tuto 20_11_16
+officiel 29/10/17, tuto 20_11_16 (http://arpschuino.fr/piloter-une-carte-8-relays-en-DMX.php)
 ecrit pour l'arpschuino  www.arpschuino.fr
 un code pour 2 cartes 8 relais http://www.produktinfo.conrad.com/datenblaetter/75000-99999/095842-da-01-fr-RELAIS.pdf
 Adressage avec l'Arpdress board (avec I2CattinyDip_09_01_15)
@@ -13,9 +13,12 @@ Adressage avec l'Arpdress board :
 
 Puis la led verte vibrillonne tant qu'elle reçoit du DMX.
 
-Pas encore officiel, tuto 18_11_16
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+official 29/10/17, tuto 20_11_16 (http://arpschuino.fr/piloter-une-carte-8-relays-en-DMX_e.php)
 written for arpschuino  www.arpschuino.fr
 For 2x 8 relais board http://www.produktinfo.conrad.com/datenblaetter/75000-99999/095842-da-01-en-RELAIS.pdf
+Adressing with arpdress board (with I2CattinyDip_09_01_15)
+for the arpdress-board to work, the low port must be unplugged
 
 Addressing with arpdress board :
 2 short flashes = the address is taken from the EEPROM.
@@ -25,15 +28,14 @@ Addressing with arpdress board :
 Then the green led blink quiquely while the board receive DMX.
 
 26/12/16 rajout d'une initialisation relais ouverts
+28_10_17 : modifie pour integrer arduino core
+
 */
-#include "fonctions.h"
+#include<Arpschuino.h>
 
 #include <lib_dmx.h>
-#define default_adress (1)//adresse DMX par defaut
-int nbre_circuits (16)//
-#define    DMX512     (0)  
-
-int adress = default_adress;
+int adress;
+int nbre_circuits (16);//
 
 //////////////////////////PATCH////////////////////////////////////////////
 byte output [16] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp11,Arp12,Arp13,Arp14,Arp15};
@@ -42,16 +44,12 @@ byte output [16] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp1
 
 void setup(){
 
-  pinMode(4, OUTPUT);  //met la led verte (temoin) en output
-  bitWrite (PORTD,4,1);// equivalent a digitalWrite(led_temoin,HIGH);
+  pinMode(LED_BUILTIN, OUTPUT);  //met la led verte (temoin) en output
+  bitWrite (PORTD,4,1);// equivalent a digitalWrite(LED_BUILTIN,HIGH);
   
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
-   int debordement = adress+nbre_circuits-512;
-if(debordement>0)
-{
-  nbre_circuits = nbre_circuits-debordement;
-}
+
   for(int i=0;i<nbre_circuits;i++)//met les 16 sorties en output
     {
      pinMode(output [i], OUTPUT); //initialisation en sortie
@@ -67,8 +65,8 @@ if(debordement>0)
 
 void loop()
 {
-  delay(500);//la led s'éteind apres 500ms sans reception DMX
-  bitWrite (PORTD,4,1);
+  delay(500);//apres 500ms sans reception DMX
+  bitWrite (PORTD,4,1);//la led s'éteind 
 } 
 
 void frame_received(uint8_t universe) // cette boucle est executé à chaque réception d'une trame DMX

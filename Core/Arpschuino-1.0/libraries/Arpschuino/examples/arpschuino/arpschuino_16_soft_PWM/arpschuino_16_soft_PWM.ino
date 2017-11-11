@@ -1,10 +1,9 @@
-
 /* 
-officiel 05_05_16
+officiel 29/10/17
 ecrit pour l'arpschuino  www.arpschuino.fr
 gradation soft PWM sur les 16 canneaux. 
-Frequence PWM 160 hz
-Adressage avec l'Arpdress board (avec I2CattinyDip_09_01_15)
+Frequence PWM 180 hz
+Adressage avec l'arpdress board (avec I2CattinyDip_09_01_15)
 pour que l'arpdress-board fonctionne, le port bas doit etre debranche.
 
 Adressage avec l'Arpdress board :
@@ -13,6 +12,14 @@ Adressage avec l'Arpdress board :
 1 cligotement jaune (arpdress board) et 10 vert =  l'adresse est non conforme, l'adresse par defaut est prise.
 
 Puis la led verte vibrillonne tant qu'elle recoit du DMX.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+official 29/10/17
+written for arpschuino  www.arpschuino.fr
+soft PWM 16 channels dimmer. 
+Frequency PWM 180 hz
+Adressing with arpdress board (with I2CattinyDip_09_01_15)
+for the arpdress-board to work, the low port must be unplugged.
 
 Addressing with arpdress board :
 2 short flashes = the address is taken from the EEPROM.
@@ -23,23 +30,17 @@ Then the green led blink quiquely while the board receive DMX.
 
 05_05_16 : fonctions dans un fichier separe
 26_12_16 : debug, la variable adress doit être un int et non un byte pour des adresses supérieures à 255.
+29_10_17 : modifie pour integrer arduino core
 */
-
-#include "fonctions.h"
+#include<Arpschuino.h>
 
 #include <lib_dmx.h>
-#define default_adress (1)//adresse DMX par defaut
-int nbre_circuits (16)
-#define    DMX512     (0) 
+int nbre_circuits (16);
+int adress;
 
-#define __DEBUG_SOFTPWM__ 0
 #include <SoftPWMMaster_mod.h>
 
- 
-// byte adress;
-int adress;//debug 26/12/16 pour les adresses au delas de 255...
-
-//////////////////////////PATCH//////////////////////
+///////////////PATCH/SOFTPWM/////////////////////
 SOFTPWM_DEFINE_CHANNEL( 0, DDRD, PORTD, PORTD3); //D3
 SOFTPWM_DEFINE_CHANNEL( 1, DDRD, PORTD, PORTD5 );//D5
 SOFTPWM_DEFINE_CHANNEL( 2, DDRD, PORTD, PORTD6 );//D6
@@ -56,30 +57,25 @@ SOFTPWM_DEFINE_CHANNEL( 12, DDRC, PORTC, PORTC2 );//A2-D16
 SOFTPWM_DEFINE_CHANNEL( 13, DDRC, PORTC, PORTC3 );//A3-D17
 SOFTPWM_DEFINE_CHANNEL( 14, DDRC, PORTC, PORTC4 );//A4-D18
 SOFTPWM_DEFINE_CHANNEL( 15, DDRC, PORTC, PORTC5 );//A5-D19
- /////////////////////////////////////////////////////////
  
-SOFTPWM_DEFINE_OBJECT( nbre_circuits );
-
+SOFTPWM_DEFINE_OBJECT( 16 );
+ /////////////////////////////////////////////////////////
 
 
 void setup(){
  /////////////////////pin 2 à  17 en sorties////////////////////////////
   for(int i=2;i<18;i++)
-    {
+  {
      pinMode(i, OUTPUT); 
-    }
+  }
   
-  bitWrite (PORTD,4,1);// equivalent a digitalWrite(led_temoin,HIGH);
+  bitWrite (PORTD,4,1);// equivalent a digitalWrite(LED_BUILTIN,HIGH);
 
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
-  int debordement = adress+nbre_circuits-512;
-if(debordement>0)
-{
-  nbre_circuits = nbre_circuits-debordement;
-}
 
-  SoftPWM.begin(160);//NE FONCTIONNE PAS A 200// Ok 180
+
+  SoftPWM.begin(180);//NE FONCTIONNE PAS A 200// Ok 180
   
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
@@ -90,8 +86,8 @@ if(debordement>0)
 
 void loop()
 {
-  delay(500);//la led s'eteind apres 500ms sans reception DMX
-  bitWrite (PORTD,4,1);
+  delay(500);//apres 500ms sans reception DMX
+  bitWrite (PORTD,4,1);//la led s'eteind 
 } 
 
 

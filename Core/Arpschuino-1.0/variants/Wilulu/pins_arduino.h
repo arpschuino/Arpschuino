@@ -42,14 +42,14 @@
 //  PWM        (D  6)  PA6  7|    |8   PA5  (D  5)        PWM
 //                           +----+
 
-const static uint8_t A0 = 0;
-const static uint8_t A1 = 1;
-const static uint8_t A2 = 2;
-const static uint8_t A3 = 3;
-const static uint8_t A4 = 4;
-const static uint8_t A5 = 5;
-const static uint8_t A6 = 6;
-const static uint8_t A7 = 7;
+const static uint8_t A0 = 0;//WiluluAdress0
+const static uint8_t A1 = 1;//WiluluAdress1
+const static uint8_t A2 = 2;//WiluluAdress2
+const static uint8_t A3 = 3;//WiluluAdress3
+const static uint8_t A4 = 7;//WiluluOUT
+//const static uint8_t A5 = 5;
+const static uint8_t A6 = 6;//SDA
+const static uint8_t A7 = 4;//SCL
 
 const static uint8_t ARPRF12SCK = 4;
 const static uint8_t ARPRF12SDI = 5;

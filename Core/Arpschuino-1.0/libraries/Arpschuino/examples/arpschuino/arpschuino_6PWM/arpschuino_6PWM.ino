@@ -22,27 +22,22 @@ Then the green led blink quiquely while the board receive DMX.
 
 05_05_16 : fonctions dans un fichier separe
 26_12_16 : debug, la variable adress doit être un int et non un byte pour des adresses supérieures à 255.
-
+28_10_17 : modifie pour integrer arduino core
 */
-#include "fonctions.h"
+#include <Arpschuino.h>
 
 #include <lib_dmx.h>
-#define default_adress (1)//adresse DMX par defaut
-int nbre_circuits (6)///////////////////
-#define    DMX512     (0)  
-// byte adress;
 int adress;//debug 26/12/16 pour les adresses au delas de 255...
+int nbre_circuits (6);///////////////////
 
 //////////////////////////PATCH////////////////////////////////////////////
-byte output [nbre_circuits] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5};
-
-//int led=0;
-
+byte output [6] = {Arp0,Arp1,Arp2,Arp5,Arp6,Arp7};
+//////////////////////////////////////////////////////////////////////////
 
 void setup()
 { 
-  pinMode(4, OUTPUT);  //met la led verte (temoin) en output
-  bitWrite (PORTD,4,1);// equivalent a digitalWrite(led_temoin,HIGH);
+  pinMode(LED_BUILTIN, OUTPUT);  //met la led verte (temoin) en output
+  bitWrite (PORTD,4,1);// equivalent a digitalWrite(LED_BUILTIN,HIGH);
   
 //modification de la fréquence http://playground.arduino.cc/Code/PwmFrequency
 //decommenter si besoin
@@ -52,13 +47,12 @@ void setup()
 
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
-int debordement = adress+nbre_circuits-512;
-if(debordement>0)
-{
-  nbre_circuits = nbre_circuits-debordement;
-}
+
   for(int i=0;i<=nbre_circuits;i++)
-   {pinMode(output[i], OUTPUT); }//
+  {
+    pinMode(output[i], OUTPUT); 
+  }
+//////////////////////////////////////////////////////////////////:
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_rx_address(adress);      // dmx start address
@@ -69,25 +63,17 @@ if(debordement>0)
 void loop() 
 {
   delay(500);//la led s'éteind apres 500ms sans reception DMX
-  bitWrite (PORTD,4,1);  
-  
+  bitWrite (PORTD,4,1);  //
 } 
 
 void frame_received(uint8_t universe) // cette boucle est executé à chaque réception d'une trame DMX
 {
- led_temoin ();//la led clignote si elle reçoit un signal DMX  
+  led_temoin ();//la led clignote si elle reçoit un signal DMX  
    
   ///////////////lecture et report des niveau DMX//////////////////////////////////
- 
-// for(int i=0;i<nbre_circuits;i++)
-//  {
-    //analogWrite(output[i],ArduinoDmx0.RxBuffer[i]);//ArduinoDmx0.RxBuffer[i]);
-//  } 
-  analogWrite(output[0],ArduinoDmx0.RxBuffer[0]);
-  analogWrite(output[1],ArduinoDmx0.RxBuffer[1]);
-  analogWrite(output[2],ArduinoDmx0.RxBuffer[2]);
-  analogWrite(output[3],ArduinoDmx0.RxBuffer[3]);
-  analogWrite(output[4],ArduinoDmx0.RxBuffer[4]);
-  analogWrite(output[5],ArduinoDmx0.RxBuffer[5]);
+  for(int i=0;i<nbre_circuits;i++)
+  {
+    analogWrite(output[i],ArduinoDmx0.RxBuffer[i]);
+  } 
 } 
 
