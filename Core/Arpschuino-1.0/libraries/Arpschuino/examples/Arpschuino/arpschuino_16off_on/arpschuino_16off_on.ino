@@ -45,7 +45,7 @@ byte output [16] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp1
 void setup(){
 
   pinMode(LED_BUILTIN, OUTPUT);  //met la led verte (temoin) en output
-  bitWrite (PORTD,4,1);// equivalent a digitalWrite(LED_BUILTIN,HIGH);
+  digitalWrite(LED_BUILTIN,HIGH);
   
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
@@ -66,7 +66,7 @@ void setup(){
 void loop()
 {
   delay(500);// apres 500ms sans reception DMX
-  bitWrite (PORTD,4,1);//la led s'éteind
+  digitalWrite(LED_BUILTIN,HIGH);//la led s'éteind
 } 
 
 void frame_received(uint8_t universe) // cette boucle est executé à chaque réception d'une trame DMX

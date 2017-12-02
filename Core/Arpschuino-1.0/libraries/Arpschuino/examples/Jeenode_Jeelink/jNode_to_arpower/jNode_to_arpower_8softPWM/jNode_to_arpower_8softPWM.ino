@@ -9,6 +9,7 @@
 //http://www.arpschuino.fr
 
 #include <ArpRFLib.h>
+#include <Arpschuino.h>
 byte NODEID = 3;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
@@ -35,7 +36,7 @@ SOFTPWM_DEFINE_OBJECT( 8 );
 void setup() {
   
     rf12_initialize(NODEID, freq, NETWORKID);
-
+  pinMode (LED_BUILTIN, OUTPUT);//D9 led temoin https://jeelabs.net/attachments/download/894/JeeNode%20Pinout%20Diagram.pdf
   pinMode (4, OUTPUT);
   pinMode (5, OUTPUT);
   pinMode (6, OUTPUT);
@@ -52,7 +53,7 @@ void setup() {
 void loop() {
 
   if (rf12_recvDone() && rf12_crc == 0) {
-
+     led_temoin();
      for(int i=0;i<8;i++)
      { 
         SoftPWM.set(i, rf12_data[i+identifiant]); 

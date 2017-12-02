@@ -10,6 +10,7 @@
 //http://www.arpschuino.fr
 
 #include <ArpRFLib.h>
+#include <Arpschuino.h>
 byte NODEID = 3;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
@@ -29,12 +30,13 @@ void setup() {
   {
      pinMode (output[i], OUTPUT);
   } 
+  pinMode (LED_BUILTIN, OUTPUT);//D9 led temoin https://jeelabs.net/attachments/download/894/JeeNode%20Pinout%20Diagram.pdf
 }
 
 void loop() {
 
   if (rf12_recvDone() && rf12_crc == 0) {
-
+     led_temoin();
      for(int i=0;i<8;i++)
      { 
         if (rf12_data[i]> bascule ){

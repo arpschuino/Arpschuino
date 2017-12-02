@@ -12,15 +12,15 @@
         {
           "name": "Arpschuino",
           "architecture": "avr",
-          "version": "1.0.1",
+          "version": "1.0.2",
           "category": "Contributed",
           "help": {
             "online": "https://www.arpschuino.fr/documentation.php"
           },
           "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.zip",
           "archiveFileName": "Arpschuino-1.0.zip",
-          "checksum": "SHA-256:2b4f10fd1f44b0dc2229293bdf507a4215146cfc764dbbb12b06e0ec9a7ad487",
-          "size": "6681000",
+          "checksum": "SHA-256:de61bdd5f8a1415c131545aedb2f8f5a33e7c50056698a74a5b5bf49a15ca7d4",
+          "size": "2014689",
           "boards": [
             {"name": "arpschuino"},
             {"name": "arpdressBoard"},

@@ -1,21 +1,12 @@
-//reçoit du dmx, envoie vers jNode, wilulu
-// commencé le 11/11/15
-
-//OK, fonctionne avec eric_jnode2/3_to_arpower05
-//wilulu
-
-//reprise 28/12/16
-//adresse en int
+//reçoit du dmx, envoie vers jNode, wilulu, arpsensorsRF
+//officiel 02/12/17
 //66 circuits
 //sortie directe sur le port du bas
 //memcpy
-//a verifier !OK!!
-//adresse max 447.(446+66=512)
 
 #include <Arpschuino.h>
 #include <lib_dmx.h>   // pour la recepionn dmx
-//#define    DMX512     (0) 
-//#define default_adress (1)//adresse par defaut
+
 int nbre_circuits (66);//
 int adress;
 
@@ -24,7 +15,6 @@ byte NODEID = 1;  //Adresse RF unique pour chaque machine de 1 à 30
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
 
-//byte ledPin[8]={2,8,14,15,16,17,18,19};
 
 byte buffer_to_send[66];
 
@@ -46,7 +36,7 @@ void setup() {
 void loop() {
 
   delay(500);// apres 500ms sans reception DMX
-  bitWrite (PORTD,4,1);//la led s'eteind
+  digitalWrite(LED_BUILTIN,HIGH);//la led s'eteind
 }
 
 

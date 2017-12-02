@@ -1,5 +1,4 @@
-//en test, avec code d'identification
-//OK !!! avec test_reception_adress_2_09_01_15
+//arpdress board , adressage de l'arpschuino http://www.arpschuino.fr
 
 //http://kasey.fr/ATTiny-capteur-universel-en-I2C.html
 /*ATtiny2313

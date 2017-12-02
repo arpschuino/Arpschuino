@@ -1,8 +1,8 @@
 /* 
-officiel 29/10/17
+officiel 29/10/17, tuto 20_11_16 (http://arpschuino.fr/piloter-une-carte-8-relays-en-DMX.php)
 ecrit pour l'arpschuino  www.arpschuino.fr
-un code pour 16 output en off/on (arpower ou relay ou flexinarp)
-Adressage avec l'arpdress board (avec I2CattinyDip_09_01_15)
+un code pour 2 cartes 8 relais http://www.produktinfo.conrad.com/datenblaetter/75000-99999/095842-da-01-fr-RELAIS.pdf
+Adressage avec l'Arpdress board (avec I2CattinyDip_09_01_15)
 pour que l'arpdress-board fonctionne, le port bas doit être débranché.
 
 Adressage avec l'Arpdress board :
@@ -14,9 +14,9 @@ Adressage avec l'Arpdress board :
 Puis la led verte vibrillonne tant qu'elle reçoit du DMX.
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-official 29/10/17
+official 29/10/17, tuto 20_11_16 (http://arpschuino.fr/piloter-une-carte-8-relays-en-DMX_e.php)
 written for arpschuino  www.arpschuino.fr
-16 off/on output (arpower or relay board. 
+For 2x 8 relais board http://www.produktinfo.conrad.com/datenblaetter/75000-99999/095842-da-01-en-RELAIS.pdf
 Adressing with arpdress board (with I2CattinyDip_09_01_15)
 for the arpdress-board to work, the low port must be unplugged
 
@@ -27,15 +27,15 @@ Addressing with arpdress board :
 
 Then the green led blink quiquely while the board receive DMX.
 
-05_05_16 : fonctions dans un fichier separe
-26_12_16 : debug, la variable adress doit être un int et non un byte pour des adresses supérieures à 255.
+26/12/16 rajout d'une initialisation relais ouverts
 28_10_17 : modifie pour integrer arduino core
+
 */
 #include<Arpschuino.h>
 
 #include <lib_dmx.h>
+int adress;
 int nbre_circuits (16);//
-int adress;//debug 26/12/16 pour les adresses au delas de 255...
 
 //////////////////////////PATCH////////////////////////////////////////////
 byte output [16] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp11,Arp12,Arp13,Arp14,Arp15};
@@ -45,16 +45,16 @@ byte output [16] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5,Arp6,Arp7,Arp8,Arp9,Arp10,Arp1
 void setup(){
 
   pinMode(LED_BUILTIN, OUTPUT);  //met la led verte (temoin) en output
-  digitalWrite(LED_BUILTIN,HIGH);
+  digitalWrite(LED_BUILTIN,HIGH);//comprtement inverse
   
   arpdress_board();//prise en charge de l'arpdress board
   //à commenter pour une adresse fixe
 
-
   for(int i=0;i<nbre_circuits;i++)//met les 16 sorties en output
-  {
-     pinMode(output [i], OUTPUT); 
-  }
+    {
+     pinMode(output [i], OUTPUT); //initialisation en sortie
+     digitalWrite(output [i], HIGH);//initialisation relais ouvets    
+    }
 ///////////////////////////////////////////////////////////////////////
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
@@ -65,21 +65,21 @@ void setup(){
 
 void loop()
 {
-  delay(500);// apres 500ms sans reception DMX
-  digitalWrite(LED_BUILTIN,HIGH);//la led s'éteind
+  delay(500);//apres 500ms sans reception DMX
+  digitalWrite(LED_BUILTIN,HIGH);//la led s'éteind 
 } 
 
 void frame_received(uint8_t universe) // cette boucle est executé à chaque réception d'une trame DMX
 {
-   led_temoin ();//la led clignote si elle reçoit un signal DMX  
-   
-   for(int i=0;i<nbre_circuits;i++)
+ led_temoin ();//la led clignote si elle reçoit un signal DMX  
+ 
+ for(int i=0;i<=nbre_circuits;i++)
    {
       if (ArduinoDmx0.RxBuffer[i]> bascule ){
-        digitalWrite(output [i], HIGH);
+        digitalWrite(output [i], LOW);
       }
       else{
-        digitalWrite(output [i], LOW);   
+        digitalWrite(output [i], HIGH);   
       }
    }
 }

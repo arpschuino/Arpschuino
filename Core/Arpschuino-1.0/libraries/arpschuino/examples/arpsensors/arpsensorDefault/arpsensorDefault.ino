@@ -1,10 +1,9 @@
 //code écris pour l'arpsensors: http://www.arpschuino.fr/arpsensors.php
-//1 ou plusieurs arpsensors (testé avec 4), esclave de l'arpschuino (fonctionne avec test_master012)
+//1 ou plusieurs arpsensors (testé avec 4), esclave de l'arpschuino (code arpsensors_to_dmx ou arpsensors_to_serial)
 //renvoie 7 bit, 6 valeures analogiques (0>255), un octet contenant les 3 digitales (0/1)
 
-//necessite la library TinyWire : https://github.com/rambo/TinyWire/tree/master/TinyWireS
 //test avec 6 capteurs
-//fonctionne avec arpsensors_to_dmx/ino, arpsensors_to_serial01
+//fonctionne avec arpsensors_to_dmx/ino, arpsensors_to_serial
 //
 //23/10/2015
 
@@ -58,7 +57,6 @@ void loop(){
   }
   
   digitales = PINB ^ B11111111; //lecture des digitales + inversion
-  
 
   if (TinyWireS.available()){           // si on voit quelque chose sur le bus I2C
 
@@ -67,7 +65,6 @@ void loop(){
       //delayMicroseconds(10);
     }
     TinyWireS.send(digitales);//envois des digitales sous la forme d'un seul octet
-
   }
 }
 

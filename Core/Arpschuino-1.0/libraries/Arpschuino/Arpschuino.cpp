@@ -10,11 +10,27 @@
 #include <WProgram.h> // Arduino 0022
 #endif
 
-#include <Wire.h>
+//#include <Wire.h>
 #define ARPDRESS_BOARD 0x26
 
 #include <EEPROM.h>
 int EEPROMaddr = 0;
+
+#if defined(ARPSCHUINO) || defined(JEENODE_JEELINK)
+#define voyant     LED_BUILTIN
+#include <Wire.h>   
+
+#elif defined(WILULU)
+#define voyant     LED_BUILTIN     
+	
+#elif defined (ARPSENSORS) || defined(ARPSENSORSRF)
+#define voyant     0
+
+//#include <TinyWireM.h>
+//#define Wire TinyWireM
+
+
+#endif
 //__________________________________________________________ 
 //                                                          |
 //                       led_temoin                         |
@@ -22,18 +38,27 @@ int EEPROMaddr = 0;
 
 bool var_led=0;
 
-void led_temoin ()
+bool led_temoin (int pin)
 {
-  bitWrite (PORTD,4,var_led);
+  digitalWrite (pin,var_led);
   var_led = var_led-1;
+  return (var_led);
 }
+
+bool led_temoin ()
+{
+  digitalWrite (voyant,var_led);
+  var_led = var_led-1;
+  return (var_led);
+}
+	#if defined(ARPSCHUINO)
 
 //__________________________________________________________
 //                                                          |
 //             adressage avec l'arpdress board              |
 //__________________________________________________________|
  
-extern int adress;//debug 26/12/16 pour les adresses au delas de 255...
+extern int adress;//debug 26/12/16 pour les adresses au dela de 255...
 extern int nbre_circuits;
 
 void arpdress_board(){
@@ -145,12 +170,12 @@ void arpdress_board(){
    
     delay(1000);
     
-    TWBR=0;
-    TWCR=0;//desactive l'I2C
-
+    //TWBR=0;
+    //TWCR=0;//desactive l'I2C
+    Wire.end(); 
+	
     pinMode(18, OUTPUT);
     pinMode(19, OUTPUT);
 	
-
-
 }
+	#endif

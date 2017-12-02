@@ -15,7 +15,7 @@ bool var_led=0;
 
 void led_temoin ()
 {
-  bitWrite (PORTD,4,var_led);
+  digitalWrite(LED_BUILTIN,HIGH)//bitWrite (PORTD,4,var_led);
   var_led = var_led-1;
 }
 

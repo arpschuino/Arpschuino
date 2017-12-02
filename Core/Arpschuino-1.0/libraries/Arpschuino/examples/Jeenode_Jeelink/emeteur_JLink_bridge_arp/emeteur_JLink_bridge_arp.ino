@@ -1,30 +1,28 @@
 //reçoit du dmx, envoie vers jNode ou wilulu
-// commencé le 11/11/15
-//v2 le 12
-//Fonctionne avec une arpschuino + arpRF
 //66 circuit max
+//officiel 02/12/17
 
 #include <lib_dmx.h>   // pour la reception dmx
 #include <ArpRFLib.h>
 
 #define    DMX512     (0) 
-#define address (1) //adresse de reception dmx
-int nbre_circuits (66) //nombre de circuit dmx reçu depuis l'adresse
+int address (1); //adresse de reception dmx
+int nbre_circuits (66); //nombre de circuit dmx reçu depuis l'adresse
 byte NODEID = 1;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
 
 boolean var_led=0;
 byte ledPin[2]={5,6};
-byte buffer_to_send[nbre_circuits];
+byte buffer_to_send[66];
 
 void setup() {
 
-  int debordement = adress+nbre_circuits-512;
-if(debordement>0)
-{
-  nbre_circuits = nbre_circuits-debordement;
-}
+  int debordement = address+nbre_circuits-513;
+  if(debordement>0)
+  {
+    nbre_circuits = nbre_circuits-debordement;
+  }
 
   ArduinoDmx0.attachRXInterrupt  (frame_received);
   ArduinoDmx0.set_control_pin(7);   // Arduino output pin for MAX485 input/output control (connect to MAX485-1 pins 2-3) 
@@ -50,7 +48,7 @@ void frame_received(uint8_t universe) // Custom ISR: fired when all channels in 
   {
     if(var_led == 0)
     {
-      analogWrite(9,0); 
+      analogWrite(9,150); 
       var_led = 1;
     }
     else

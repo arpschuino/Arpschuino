@@ -66,7 +66,7 @@ void setup(){
 void loop()
 {
   delay(500);// apres 500ms sans reception DMX
-  digitalWrite(LED_BUILTIN,HIGH);//la led s'éteind
+  digitalWrite(LED_BUILTIN,HIGH);//la led s'eteind
 } 
 
 void frame_received(uint8_t universe) // cette boucle est executé à chaque réception d'une trame DMX

@@ -17,47 +17,32 @@
 //http://www.arpschuino.fr
 
 #include <ArpRFLib.h>
+#include <Arpschuino.h>
 byte NODEID = 2;  //Adresse RF unique pour chaque machine
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
 int identifiant = 0; //adresse du recepteur = adresse dmx + son adresse
-const byte led_temoin=17;//Jeenode PA4
-boolean led =0;
-void setup() {
+const byte temoin=17;//Jeenode PA4  https://jeelabs.net/attachments/download/894/JeeNode%20Pinout%20Diagram.pdf
 
+
+void setup() {
     
     TCCR0B = TCCR0B & 0b11111000 | 001; //frequence 
     rf12_initialize(NODEID, freq, NETWORKID);
 
-    pinMode(led_temoin,OUTPUT);
-    digitalWrite(led_temoin, HIGH);
-
+    pinMode(temoin,OUTPUT);
     pinMode (5, OUTPUT);
     pinMode (6, OUTPUT);
 }
 
 void loop() {
   
-
       if (rf12_recvDone() && rf12_crc == 0) {
-        if(led == 0)
-        {
-          digitalWrite  (led_temoin,  LOW); 
-          led = 1;
-        }
-        else
-        {
-          digitalWrite  (led_temoin,  HIGH);
-          led = 0;
-        }
 
+        led_temoin(temoin);
         analogWrite (6, rf12_data[0+identifiant]);
 
         analogWrite (5, rf12_data[1+identifiant]);
         delay(15);
-     }
-     
-     else{
-      digitalWrite(led_temoin, LOW);
-     }          
+     }        
 }

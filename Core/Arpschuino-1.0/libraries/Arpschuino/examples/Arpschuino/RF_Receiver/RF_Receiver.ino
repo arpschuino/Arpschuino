@@ -3,7 +3,8 @@
 // puis revoie les données en DMX et écrit sur ses sorties
 //recepteur 3= main gauche / antenne rose
 //recepteur 2= main droite / antenne jaune
-#include "fonctions.h"
+#include <Arpschuino.h>
+
 #include <SoftPWMMaster_mod.h>
 //////////////////////////PATCH//////////////////////
 SOFTPWM_DEFINE_CHANNEL( 0, DDRD, PORTD, PORTD3); //D3
@@ -32,7 +33,7 @@ SOFTPWM_DEFINE_OBJECT( 16 );
 #define NETWORKID (77)  //l'id du reseau commun pour toute les cartes
 #define GATEWAYID (1) //l'id de la carte qui sert de gateway
 int freq = RF12_868MHZ; //la frequence de l'emeteur
-int led_receive = Arp0;
+int led_receive = LED_BUILTIN;
 
 //////////////////////////PATCH////////////////////////////////////////////
 #define NBOUTPUT 12

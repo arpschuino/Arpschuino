@@ -1,25 +1,26 @@
 /* 
-officiel 17/10/17
+officiel 01/12/17
 ecrit pour la wilulu  www.arpschuino.fr/wilulu.php
-gradation pwm sur un canal
+on/off sur un canal
 fonctionne avec "emeteur_arpschuino_officiel" ou "emeteur_JLink_DMX" comme emmeteur
 adresse = adreesse de l'emeteur + valeur définie par l'encodeur rotatif
 En l'absence de signal, la led reste allumé, elle clignote lorsqu'elle recoit
 
-official 17/10/17
+official 01/12/17
 Written for the wilulu  www.arpschuino.fr/wilulu_e.php
-one channel dimmer
+on/off one channel
 work with "emeteur_arpschuino_officiel" or "emeteur_JLink_bridge_arp" as emiter
 address = emiter address + value set by the rotary encoder
 If there is no signal, the LED remains lit, flashes when it is received
 
 */
+#include <Arpschuino.h>
 #include <ArpRFLib.h>
-byte NODEID = 4;  //Adresse RF unique pour chaque machine
+byte NODEID = 4;  //Adresse RF
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 int freq = RF12_868MHZ; //frequence de l'emeteur RF12
 
-boolean led =0;
+#define bascule 127
 
 const byte dip[4]={WiluluAdress0,WiluluAdress1,WiluluAdress2,WiluluAdress3};//
 char identifiant=0;
@@ -43,7 +44,7 @@ void setup() {
 
     pinMode (WiluluOUT , OUTPUT);
 
-    delay (1200);
+    delay (100);
     rf12_initialize(NODEID, freq, NETWORKID);
 
   for(int i=0;i<4;i++)
@@ -60,12 +61,8 @@ void setup() {
 void loop() {
 
       if (rf12_recvDone() && rf12_crc == 0) {
-
-        led = !led;
-       
-          digitalWrite  (LED_BUILTIN,  led); 
-
-        if(rf12_data[identifiant]>127)
+        led_temoin ();
+        if(rf12_data[identifiant]>bascule)
         {
           digitalWrite (WiluluOUT , HIGH);
         }
