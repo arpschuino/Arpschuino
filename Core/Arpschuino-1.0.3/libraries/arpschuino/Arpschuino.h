@@ -4,7 +4,7 @@
 
 #define default_adress (1)//adresse par defaut
 
-void led_temoin ();//change l'etat (allume ou eteind) de la led verte de l'arpschuino
+bool led_temoin ();//change l'etat (allume ou eteind) de la led verte de l'arpschuino
 
 
 

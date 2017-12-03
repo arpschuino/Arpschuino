@@ -97,10 +97,22 @@
 #define SPI_MISO    3     // PB3, pin 11, Digital14
 #define SPI_MOSI    2     // PB2, pin 10, Digital16
 #define SPI_SCK     1     // PB1, pin 9, Digital15
+/**/
+#elif defined(JEENODE_JEELINK)
+#define RFM_IRQ     2     // 2=JeeNode, 18=JeeNode pin change
+//#define RFM_IRQ       1     // PCINT1=JeeNode Block pin change
+#define SS_DDR      DDRB
+#define SS_PORT     PORTB
+#define SS_BIT      2     // for PORTB: 2 = d.10, 1 = d.9, 0 = d.8
+
+#define SPI_SS      10    // PB2, pin 16
+#define SPI_MOSI    11    // PB3, pin 17
+#define SPI_MISO    12    // PB4, pin 18
+#define SPI_SCK     13    // PB5, pin 19
 
 #elif defined(ARPSCHUINO) 
-#define PINCHG_IRQ 1
-//#define PINCHG_IRQ 1 
+
+#define PINCHG_IRQ 1 //commenté pour jlink/////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define RFM_IRQ     1    // arpschuino = 1
 #define SS_DDR      DDRB
 #define SS_PORT     PORTB
@@ -112,7 +124,6 @@
 #define SPI_SCK     13    // PB5, pin 19
 
 #else
-
 // ATmega168, ATmega328, etc.
 #define RFM_IRQ     2     // 2=JeeNode, 18=JeeNode pin change
 //#define RFM_IRQ       1     // PCINT1=JeeNode Block pin change
@@ -124,6 +135,7 @@
 #define SPI_MOSI    11    // PB3, pin 17
 #define SPI_MISO    12    // PB4, pin 18
 #define SPI_SCK     13    // PB5, pin 19
+
 
 #endif
 

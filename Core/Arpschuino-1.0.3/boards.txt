@@ -91,6 +91,6 @@ jee.build.mcu=atmega328p
 jee.build.f_cpu=16000000L
 jee.build.core=arduino:arduino
 jee.build.board=AVR_ATmega328
-jee.build.variant=arpschuino
+jee.build.variant=jeenode_jeelink
 jee.bootloader.file=optiboot/optiboot_atmega328.hex
 

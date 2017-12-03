@@ -1,7 +1,6 @@
 //reçoit du dmx, envoie vers jNode, wilulu, arpsensorsRF
 //officiel 02/12/17
 //66 circuits
-//sortie directe sur le port du bas
 //memcpy
 
 #include <Arpschuino.h>
