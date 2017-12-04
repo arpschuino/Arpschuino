@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "name": "arpschuino",
+      "name": "Arpschuino",
       "maintainer": "Anton Langhoff, Jacques Bouault",
       "websiteURL": "http://www.arpschuino.fr",
       "email": "arpschuino@gmx.fr",
@@ -12,15 +12,48 @@
         {
           "name": "Arpschuino",
           "architecture": "avr",
+          "version": "1.0.0",
+          "category": "Contributed",
+          "help": {
+            "online": "https://www.arpschuino.fr/documentation.php"
+          },
+          "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.0.zip",
+          "archiveFileName": "Arpschuino-1.0.0.zip",
+          "checksum": "SHA-256:5a9f4dd15337cfdb1ae350bb579ade25aff81d9310aa951a51fbec5595f30a31",
+          "size": "6689261",
+          "boards": [
+            {"name": "Arpschuino"},
+            {"name": "ArpdressBoard"},
+			{"name": "GradaLabs"},
+			{"name": "ArpSensors"},
+			{"name": "ArpSensorsRF"},
+			{"name": "Wilulu"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "4.8.1-arduino5"
+            },
+            {
+              "packager": "arduino",
+              "name": "avrdude",
+              "version": "6.0.1-arduino5"
+            }
+          ]
+        },
+		{
+          "name": "Arpschuino",
+          "architecture": "avr",
           "version": "1.0.3",
           "category": "Contributed",
           "help": {
             "online": "https://www.arpschuino.fr/documentation.php"
           },
-          "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.zip",
+          "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.3.zip",
           "archiveFileName": "Arpschuino-1.0.3.zip",
-          "checksum": "SHA-256:8ddf9145890a6e969cf89e3f0bbfeb8ea54c1d0a0cdcb57724efd14b92d00a29",
-          "size": "2006281",
+          "checksum": "SHA-256:4ac21fffc326e9da9d2948a714913045193de148d39888eb7df4048c6d672dff",
+          "size": "1950687",
           "boards": [
             {"name": "arpschuino"},
             {"name": "arpdressBoard"},
