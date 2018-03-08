@@ -75,7 +75,7 @@
           ]
         },
 
-	{
+		{
           "name": "Arpschuino",
           "architecture": "avr",
           "version": "1.0.4",
