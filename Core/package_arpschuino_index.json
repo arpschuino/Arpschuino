@@ -85,7 +85,7 @@
           },
           "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.4.zip",
           "archiveFileName": "Arpschuino-1.0.4.zip",
-          "checksum": "SHA-256:	90819fde41683e3e38ec79890bbb9a555eab6b8f6b9a66ea2652dd3b82e28a9a",
+          "checksum": "SHA-256:90819fde41683e3e38ec79890bbb9a555eab6b8f6b9a66ea2652dd3b82e28a9a",
           "size": "1960746",
           "boards": [
             {"name": "arpschuino"},
