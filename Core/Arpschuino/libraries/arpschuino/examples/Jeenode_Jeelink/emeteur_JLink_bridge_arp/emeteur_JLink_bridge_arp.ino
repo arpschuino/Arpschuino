@@ -37,8 +37,21 @@ void setup() {
 
 void loop() {
 
-  delay(500);//la led s'eteind apres 500ms sans reception DMX
+int currPeriod = millis()/TRANSMITPERIOD;
+  if (currPeriod != lastPeriod)
+  {
+    radio.receiveDone();
+    if(radio.canSend())
+    {
+      lastPeriod=currPeriod;
+      rf12_sendNow(0, &ArduinoDmx0.RxBuffer,nbre_circuits);
+    }
+  }
+  //la led s'eteind apres 500ms sans reception DMX
+  if(lastPeriod+500<millis())
+  {
   analogWrite(9,255);
+  }
 }
 
 
@@ -58,9 +71,7 @@ void frame_received(uint8_t universe) // Custom ISR: fired when all channels in 
     }
   }
   /////////////////
-
   memcpy((void *)buffer_to_send, (void *)ArduinoDmx0.RxBuffer, nbre_circuits);
-  rf12_sendNow(0, &buffer_to_send,nbre_circuits);
 }
 
 
