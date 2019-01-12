@@ -31,9 +31,13 @@ void read_sensor()
 ///////////////////////////////// R F 12 /////////////////////////
 #include <ArpRFLib.h>
 #define ID 2//  unique pour chaque carte 2 droite, 3 pour gauche,etc...
-#define NETWORKID       77  //l'id du reseau commun pour toute les cartes
-#define GATEWAYID     1 //l'id de la carte qui sert de gateway
-int freq = RF12_868MHZ; //la frequence de l'emeteur
+#define NETWORKID (212)  //l'id du reseau commun pour toute les cartes
+#define NODEID (1) //l'id de la carte qui sert de gateway
+int band = RF12_868MHZ; //la frequence de l'emeteur
+//RF12_915MHZ America  // RF12_433MHZ
+
+float frequency_setting = 868.00; //beetween 863,00 > 870,00
+//float frequency_setting = 915.00 ;//902;1–918 MHz (America, China and eastern Pacific Islands)
 
 typedef struct {
   byte node;
@@ -46,7 +50,7 @@ void setup () {
 
   payload.node=ID;
   delay(300);
-  rf12_initialize(payload.node, freq, NETWORKID);
+  rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
 }
 
 void loop () {

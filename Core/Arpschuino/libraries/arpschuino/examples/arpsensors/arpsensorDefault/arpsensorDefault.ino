@@ -4,14 +4,21 @@
 
 //test avec 6 capteurs
 //fonctionne avec arpsensors_to_dmx/ino, arpsensors_to_serial
-//
+/////////////////////////////////////////////////////////////////////////////////////
+// code write for the arpsensors: http://www.arpschuino.fr/arpsensors_e.php
+// 1 or more arpsensors (tested with 4), arpschuino slave (code arpsensors_to_dmx or arpsensors_to_serial)
+// returns 7 bits, 6 analog values ​​(0> 255), one byte containing the 3 digitals (0/1)
+
+// test with 6 sensors
+// works with arpsensors_to_dmx / ino, arpsensors_to_serial
+
 //23/10/2015
 
 
 //une source d'inspiration : http://kasey.fr/ATTiny-capteur-universel-en-I2C.html
 //ATtiny 44 ou 84
 
-#include "TinyWireS.h"                  // on inclus la lib I2C Slave pour ATTiny
+#include <TinyWireS.h>                  // on inclus la lib I2C Slave pour ATTiny
 
 #define I2C_SLAVE_ADDR  0x27         // adresse I2C differente de l'arpdress board (0x26)
  
@@ -28,7 +35,6 @@ byte digitales =B00000000;//l'octet contenant les digitales, B00000111 par examp
 
 
 void setup(){
- 
   DDRA  = B00000000;//port A en input, PB7(slc) et PB5'sda)aussi
   //PORTA = B01011101;//pas de pullUp sur le port B
    
@@ -39,32 +45,31 @@ void setup(){
   byteRcvd = 0;
 }
 
-void loop(){
- 
-  for(int i=0;i<6;i++){         //lecture des analogs
+void loop()
+{ 
+  for(int i=0;i<6;i++)         //lecture des analogs
+  {
       unsigned int sum=0;
       unsigned int temp_val =0;
       for (int j = 0;j < 16;j ++)//On lit 16 fois la valeur
       {
-	temp_val = analogRead(analog[i]); 
-	sum = sum +temp_val;
+      	temp_val = analogRead(analog[i]); 
+      	sum = sum +temp_val;
       }
      temp_val = sum>>4;//la moyenne des 16 samples
       
       sensVal[i]=byte(temp_val>>2);//decale la valeur de 2 bits pour avoir une valeur 8 bits
                                    //peut être remplacé par un calibrage
-
   }
   
   digitales = PINB ^ B11111111; //lecture des digitales + inversion
 
-  if (TinyWireS.available()){           // si on voit quelque chose sur le bus I2C
-
-    for(int i=0;i<6;i++){  //envoie des analogs
+  if (TinyWireS.available())           // si on voit quelque chose sur le bus I2C
+  {
+    for(int i=0;i<6;i++)  //envoie des analogs
+    {
       TinyWireS.send(sensVal[i]);
-      //delayMicroseconds(10);
     }
     TinyWireS.send(digitales);//envois des digitales sous la forme d'un seul octet
   }
 }
-

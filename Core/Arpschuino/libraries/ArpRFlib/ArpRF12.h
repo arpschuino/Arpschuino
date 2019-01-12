@@ -1,4 +1,6 @@
 // 2009-02-09 <jc@wippler.nl> http://opensource.org/licenses/mit-license.php
+//modifié pour les cartes arpschuino
+
 
 #ifndef RF12_h
 #define RF12_h
@@ -169,5 +171,12 @@ enum rf12DataRates {
     RF12_DATA_RATE_1 = RF12_DATA_RATE_CMD | 0x9E,  // Approx   1200 bps
     RF12_DATA_RATE_DEFAULT = RF12_DATA_RATE_7,
 };
+/////////////////ajout arpschuino///////////////////////////////	
+void rf12_default_EEPROM();	
+	
+void rf12_read_EEPROM_band();	
 
+void RF12_read_EEPROM_frequency();
+
+unsigned int rf12_calcul_freq (float freq_set);
 #endif

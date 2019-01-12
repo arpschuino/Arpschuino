@@ -1,0 +1,23 @@
+
+#######################################
+# Methods and functions (KEYWORD2)
+#######################################
+Arp_led_temoin		KEYWORD2
+Arp_arpdress_board	KEYWORD2
+Arp_write_dmx_address	KEYWORD2
+Arp_read_dmx_address	KEYWORD2
+Arp_default_EEPROM	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+
+#######################################
+# Macros (LITERAL2)
+#######################################
+
+
+#######################################
+# Variables (LITERAL2)
+#######################################

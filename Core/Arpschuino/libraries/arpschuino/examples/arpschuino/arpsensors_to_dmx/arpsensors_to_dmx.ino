@@ -17,14 +17,14 @@ byte buffer_to_send[9]={0};  //les valeurs a afficher
 
 #include <lib_dmx.h>
 int nbre_circuits (9 * nbr_arpsensors);
-int adress;
+int address;
 
 void setup()
 {
-  arpdress_board();
+  Arp_arpdress_board();
    
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
-  ArduinoDmx0.set_tx_address(adress);      // dmx start address
+  ArduinoDmx0.set_tx_address(address);      // dmx start address
   ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_tx(DMX512);  
     

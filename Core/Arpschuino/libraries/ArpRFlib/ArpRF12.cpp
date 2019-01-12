@@ -1,6 +1,7 @@
 /// @file
 /// RFM12B driver implementation
 // 2009-02-09 <jc@wippler.nl> http://opensource.org/licenses/mit-license.php
+// 2018   j Bouault http://arpschuino.fr/
 
 #include "ArpRF12.h"
 #include <avr/io.h>
@@ -12,6 +13,8 @@
 #else
 #include <WProgram.h> // Arduino 0022
 #endif
+
+#include <EEPROM.h>//ajout arpschuino
 
 #if RF12_COMPAT
 #define rf12_rawlen     rf12_buf[1]
@@ -1040,4 +1043,49 @@ void rf12_encrypt (const uint8_t* key) {
         crypter = cryptFun;
     } else
         crypter = 0;
+}	
+	///////////////////////////////nouvelles fonctions arpschuino///////////////////////////////////////////////////
+	
+extern uint16_t band;	
+
+void rf12_default_EEPROM()
+{
+  EEPROM.update(0x20,B10000001);//ID + band
+  EEPROM.update(0x21,212);//groupe
+  EEPROM.put(0x24,1600);//frequency	
+}	
+
+void rf12_read_EEPROM_band()
+{
+    band = (eeprom_read_byte(RF12_EEPROM_ADDR + 0))>>6;
+    if (band==0)
+    {
+      band=2;//RF12_868MHZ
+    }
+	//return band;
+}	
+	
+void RF12_read_EEPROM_frequency()
+{
+  frequency = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4)); 
+}
+
+unsigned int rf12_calcul_freq (float freq_set)
+{
+  if(band == RF12_868MHZ)
+  {
+    freq_set= freq_set*100-86000;
+    freq_set=freq_set*2;
+  }
+  else if(band == RF12_915MHZ)
+  {
+    freq_set= freq_set-900;
+    freq_set=freq_set/0.0075;
+  }
+  else if(band == RF12_433MHZ)
+  {
+    freq_set= freq_set-430;
+    freq_set=freq_set*400;
+  }  
+  return freq_set;
 }

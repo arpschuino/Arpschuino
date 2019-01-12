@@ -30,10 +30,13 @@ SOFTPWM_DEFINE_OBJECT( 16 );
 
 #define NUM_NODES (2) // Definit le nombre d'émeteurs ArpSensorRF
 #define DATA_PER_NODE (6) 
-#define NETWORKID (77)  //l'id du reseau commun pour toute les cartes
-#define GATEWAYID (1) //l'id de la carte qui sert de gateway
-int freq = RF12_868MHZ; //la frequence de l'emeteur
-int led_receive = LED_BUILTIN;
+#define NETWORKID (212)  //l'id du reseau commun pour toute les cartes
+#define NODEID (1) //l'id de la carte qui sert de gateway
+int band = RF12_868MHZ; //la frequence de l'emeteur
+//RF12_915MHZ America  // RF12_433MHZ
+
+float frequency_setting = 868.00; //beetween 863,00 > 870,00
+//float frequency_setting = 915.00 ;//902;1–918 MHz (America, China and eastern Pacific Islands)
 
 //////////////////////////PATCH////////////////////////////////////////////
 #define NBOUTPUT 12
@@ -64,23 +67,21 @@ unsigned long previousMillis = 0;
 
 void setup () {
   
-  pinMode(led_receive,OUTPUT);
-  digitalWrite(led_receive,HIGH);//eteind la led
-  arpdress_board();//prise en charge de l'arpdress board
+  pinMode(LED_BUILTIN,OUTPUT);
+  digitalWrite(LED_BUILTIN,HIGH);//eteind la led
+  Arp_arpdress_board();//prise en charge de l'arpdress board
 
   int debordement = adress+nbre_circuits-512;
 if(debordement>0)
 {
   nbre_circuits = nbre_circuits-debordement;
 }
-
   ArduinoDmx0.set_control_pin(ArpDMXControl);    // Arduino output pin for MAX485 input/output control (connect to MAX485 pins 2-3) 
   ArduinoDmx0.set_tx_address(adress);      // dmx start address
   ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_tx(DMX512);  
   SoftPWM.begin(160);
-  rf12_initialize(GATEWAYID, freq, NETWORKID);
-
+  rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
 }
 ////////////////ecrit les données reçues sur les sorties de l'arpschuino pour un fonctionnement standalone
 void write_data_to_output()
@@ -137,6 +138,6 @@ void loop () {
 /////////////////////////fonctions//////////////////////////////////////////////////
 
 void voyant (){ 
-      digitalWrite(led_receive, var_led_receive); 
+      digitalWrite(LED_BUILTIN, var_led_receive); 
       var_led_receive = !var_led_receive;
 }

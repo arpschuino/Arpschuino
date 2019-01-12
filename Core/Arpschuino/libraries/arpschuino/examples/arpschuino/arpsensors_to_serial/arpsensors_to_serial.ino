@@ -3,6 +3,11 @@
 //test avec plusieurs arpsensors fonctionne avec 3 ;)
 //reception de 6 analogs et de 3 digitales
 
+// test code, allows to monitor the values sent by the arpsensors
+// to upload in the apschuino (or arduino)
+// test with multiple arpsensors works with 3;)
+// receive 6 analogs and 3 digitals
+
 //23/10/2015
 //3 arp
 
