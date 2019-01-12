@@ -46,7 +46,8 @@ void setup() {
 
   //readRF12EEPROM();
   rf12_read_EEPROM_band();
-  uint16_t frequency = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4));
+  uint16_t frequency;
+  rf12_read_EEPROM_frequency();
   //uint16_t frequency = EEPROM.get(0x24,frequency);
   nbre_circuits=EEPROM.read(0x004);
   if(nbre_circuits<2||nbre_circuits>66) nbre_circuits=16;
