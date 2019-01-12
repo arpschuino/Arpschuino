@@ -1065,7 +1065,7 @@ void rf12_read_EEPROM_band()
 	//return band;
 }	
 	
-void RF12_read_EEPROM_frequency()
+void rf12_read_EEPROM_frequency()
 {
   frequency = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4)); 
 }

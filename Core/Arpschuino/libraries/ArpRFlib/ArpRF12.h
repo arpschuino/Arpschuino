@@ -176,7 +176,7 @@ void rf12_default_EEPROM();
 	
 void rf12_read_EEPROM_band();	
 
-void RF12_read_EEPROM_frequency();
+void rf12_read_EEPROM_frequency();
 
 unsigned int rf12_calcul_freq (float freq_set);
 #endif

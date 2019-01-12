@@ -37,7 +37,7 @@ rf12_control	KEYWORD2
 #########ajouts ArpRF12################
 rf12_default_EEPROM		KEYWORD2	
 rf12_read_EEPROM_band		KEYWORD2	
-RF12_read_EEPROM_frequency	KEYWORD2
+rf12_read_EEPROM_frequency	KEYWORD2
 rf12_calcul_freq		KEYWORD2
 
 #######################################
