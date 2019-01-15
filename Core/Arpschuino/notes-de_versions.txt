@@ -1,35 +1,35 @@
-1.0.0 : version expérimentale octobre 2017
+1.0.0 : version expÃ©rimentale octobre 2017
 
-1.0.1 : première version fonctionelle 11/11/17
+1.0.1 : premiÃ¨re version fonctionelle 11/11/17
 
-1.0.2 :	grada laps retiré
-	Jeenode_jeelink ajouté dans "variants"
+1.0.2 :	grada laps retirÃ©
+	Jeenode_jeelink ajoutÃ© dans "variants"
 
-	library erpschuino, led_temoin() : n°pin remplacé par LED_BUILTIN (comptabilité avec les autre boards)
+	library erpschuino, led_temoin() : nÂ°pin remplacÃ© par LED_BUILTIN (comptabilitÃ© avec les autre boards)
 	+ 2eme fonction led_temoin() avec argument (pin) pour les cartes sans LED_BUILTIN
 	led_temoin()retourne la valeur de var led
 	Dans arpdress_board() :     TWBR=0;
-    	TWCR=0; remplacé par Wire.end();(compatibilité)
+    	TWCR=0; remplacÃ© par Wire.end();(compatibilitÃ©)
 	la lib compile avec toute les cartes, led_temoin() compatible, arpdress_board() avec l'arpschuino uniquement
 
-	exemples arpschuino : fonctions.h et .cpp supprimés (inclu dans la library). n°pin remplacé par LED_BUILTIN, bitWrite remplacé par digitalWrite pour plus de lisibilité et compatibilité
-	exemple arpdress board netoyé
-	exemples arpsensors, arpsensorsRF, wilulu, jeenode/jeelink corrigés, portage de la library
+	exemples arpschuino : fonctions.h et .cpp supprimÃ©s (inclu dans la library). nÂ°pin remplacÃ© par LED_BUILTIN, bitWrite remplacÃ© par digitalWrite pour plus de lisibilitÃ© et compatibilitÃ©
+	exemple arpdress board netoyÃ©
+	exemples arpsensors, arpsensorsRF, wilulu, jeenode/jeelink corrigÃ©s, portage de la library
 
 1.0.3 :	03/12/17
-	Debug exemples fonctions.h et .cpp supprimés (inclus dans la library).
+	Debug exemples fonctions.h et .cpp supprimÃ©s (inclus dans la library).
 	Modif du fichier board.txt pour que la variante jeenode_jeelink soit reconue.
-	Modif aussi de ArpRF12.cpp pour un bon fonctionnement avec les différentes cartes.
+	Modif aussi de ArpRF12.cpp pour un bon fonctionnement avec les diffÃ©rentes cartes.
 
 1.0.4 : 08/03/18 
-	arpdress board retiré des exemples
+	arpdress board retirÃ© des exemples
 	ajout de la library arpPCA9685
 	ajout wilulu low power dans les exemples
-	ajout optiboot_atmega328.hex (pour éviter un warning à la compilation).(Arduino15\packages\Arpschuino\hardware\avr\1.0.3\bootloaders\optiboot\optiboot_atmega328.hex)
+	ajout optiboot_atmega328.hex (pour Ã©viter un warning Ã  la compilation).(Arduino15\packages\Arpschuino\hardware\avr\1.0.3\bootloaders\optiboot\optiboot_atmega328.hex)
 	et empty84at8.hex (Arduino15\packages\Arpschuino\hardware\avr\1.0.3\bootloaders\empty\empty84at8.hex)
 	
 1.0.5 : 12/01/19 
-	library flash :			retiré car obsolete et plus utilisé
+	library flash :			retirÃ© car obsolete et plus utilisÃ©
 
 	libary arpschuino :
 
@@ -43,15 +43,15 @@
 					Arp_read_dmx_address();//lit l'eeprom, retourne l'adresse DMX
 					Arp_default_EEPROM() ;//met les valeurs par defaut dans l'eeprom
 					
-		nouveau :		Dans la fonction Arp_arpdress_board(), l'eeprom n'est reécrite qu'en cas de changement d'adresse.
-					En cas d'adresse non conforme, l'adresse n'est pas changé (précédemment, adresse 001 en cas d'adresse non conforme)
+		nouveau :		Dans la fonction Arp_arpdress_board(), l'eeprom n'est reÃ©crite qu'en cas de changement d'adresse.
+					En cas d'adresse non conforme, l'adresse n'est pas changÃ© (prÃ©cÃ©demment, adresse 001 en cas d'adresse non conforme)
 					la fonction retourne l'adresse lue.
-					Changement de féquence possible dans tout les exemples avec RF12.
+					Changement de fÃ©quence possible dans tout les exemples avec RF12.
 
-		nouveaux exemples :	aprschuino2PWM_high_resolution : 2 output en pwm sorties 9 et 10 (Arp5 et 6), resolution variable de 8 à 16 bit 
+		nouveaux exemples :	aprschuino2PWM_high_resolution : 2 output en pwm sorties 9 et 10 (Arp5 et 6), resolution variable de 8 Ã  16 bit 
 					artefact_transceiver : Verifier l'adresse en mode recepteur
 
-		exemple retiré :  	one_emeter_with_Ack
+		exemple retirÃ© :  	one_emeter_with_Ack
 
 		arpdress board layout :	mise en place d'une convention pour l'utilisation des adresses autres que 1>512
 					
@@ -74,10 +74,10 @@
 		nouvelles fonctions :	rf12_default_EEPROM(); remet les valeurs par defaut (ID + band/groupe/frequency	)
 					rf12_read_EEPROM_band(); lit la bande de frequence ecrite dans l'EEPROM	
 					rF12_read_EEPROM_frequency(); lit la frequence ecrite dans l'EEPROM
-					rF12_calcul_freq (float freq_set); transforme une frequence ecrite avec un nombre à 2 chiffre apres la virgule
+					rF12_calcul_freq (float freq_set); transforme une frequence ecrite avec un nombre Ã  2 chiffre apres la virgule
 					en valeur utilisable par la librairie.
 										
-	Eeprom Layout :		mise en place d'emplacements conventionnels pour les données stockées dans l'EEPROM 
+	Eeprom Layout :		mise en place d'emplacements conventionnels pour les donnÃ©es stockÃ©es dans l'EEPROM 
 
 						byte 0x000 DMX address centaines      **** *nnn  1 - 5
 						byte 0x001 DMX address disaines       **** nnnn  1 - 9
