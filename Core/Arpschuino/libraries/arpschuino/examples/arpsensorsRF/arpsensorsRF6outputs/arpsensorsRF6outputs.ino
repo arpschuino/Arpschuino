@@ -21,7 +21,7 @@ byte output [8] = {Arp0,Arp1,Arp2,Arp3,Arp4,Arp5};
 
 
 void setup() {
-  rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
+  rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
   for (byte i=0; i<8 ;i++)
   {
      pinMode (output[i], OUTPUT);

@@ -16,7 +16,7 @@ int sensVal[nbr_analog]={0};  //les valeurs analogiques a renvoyer
 bool var=0;
 
 void setup() {
-    rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
+    rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
 }
 
 void loop() {
