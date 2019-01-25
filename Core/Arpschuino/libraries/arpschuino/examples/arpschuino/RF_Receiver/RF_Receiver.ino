@@ -5,7 +5,7 @@
 //recepteur 2= main droite / antenne jaune
 #include <Arpschuino.h>
 
-#include <SoftPWMMaster_mod.h>
+#include <SoftPWM.h>
 //////////////////////////PATCH//////////////////////
 SOFTPWM_DEFINE_CHANNEL( 0, DDRD, PORTD, PORTD3); //D3
 SOFTPWM_DEFINE_CHANNEL( 1, DDRD, PORTD, PORTD5 );//D5
@@ -80,8 +80,8 @@ if(debordement>0)
   ArduinoDmx0.set_tx_address(adress);      // dmx start address
   ArduinoDmx0.set_tx_channels(nbre_circuits);     // number of rx channels
   ArduinoDmx0.init_tx(DMX512);  
-  SoftPWM.begin(160);
-  rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
+  Palatis::SoftPWM.begin(160);
+  rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
 }
 ////////////////ecrit les données reçues sur les sorties de l'arpschuino pour un fonctionnement standalone
 void write_data_to_output()
@@ -90,14 +90,14 @@ void write_data_to_output()
   {
     for(int i=0; i< NBOUTPUT;i++)
     {
-          SoftPWM.set(i,data[i]);  //buffers 0 indexed
+          Palatis::SoftPWM.set(i,data[i]);  //buffers 0 indexed
     }
   }
   else
   {
     for(int i=0; i< DATA_PER_NODE*NUM_NODES;i++)
     {
-          SoftPWM.set(i,data[i]);  //buffers 0 indexed
+          Palatis::SoftPWM.set(i,data[i]);  //buffers 0 indexed
     }
   }
 }

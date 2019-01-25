@@ -61,7 +61,7 @@ void setup() {
   ArduinoDmx0.set_rx_channels(nbre_circuits); // 2 to 512 in standard mode) See lib_dmx.h 
   ArduinoDmx0.init_rx(DMX512);    
 
-  rf12_initialize(NODEID, band, NETWORKID,calcul_freq(frequency_setting));
+  rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
 
   pinMode(LED_BUILTIN, OUTPUT); 
 }
