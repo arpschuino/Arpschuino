@@ -138,7 +138,40 @@
               "version": "6.0.1-arduino5"
             }
           ]
-        }		
+        },
+
+		{
+          "name": "Arpschuino",
+          "architecture": "avr",
+          "version": "1.0.6",
+          "category": "Contributed",
+          "help": {
+            "online": "https://www.arpschuino.fr/documentation.php"
+          },
+          "url": "https://github.com/arpschuino/Arpschuino/raw/master/Core/Arpschuino-1.0.5.zip",
+          "archiveFileName": "Arpschuino-1.0.6.zip",
+          "checksum": "SHA-256:189d445a6b7eee48bfdba613abfa90fec38664a548238e2ed59315afca0f1c3b",
+          "size": "1966394",
+          "boards": [
+            {"name": "arpschuino"},
+			{"name": "arpSensors"},
+			{"name": "arpSensorsRF"},
+			{"name": "wilulu"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "4.8.1-arduino5"
+            },
+            {
+              "packager": "arduino",
+              "name": "avrdude",
+              "version": "6.0.1-arduino5"
+            }
+          ]
+        }
+		
       ],
       "tools":[]
     }
