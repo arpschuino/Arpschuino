@@ -16,8 +16,8 @@ gradation pwm 12 bit, 1526Hz sur 16 circuits
 #define    DMX512     (0) 
 #include "courbe_led.h"
 
-int nbre_circuits (32);
-int adress = default_adress;
+int nbre_circuits = 32;
+int address = default_adress;
 
 Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x40);//dip 000000
 Adafruit_PWMServoDriver pwm2 = Adafruit_PWMServoDriver(0x41);//dip 000001
@@ -35,10 +35,11 @@ void setup() {
   pwm1.setPWMFreq(1600);
   pwm2.setPWMFreq(1600);  // This is the maximum PWM frequency
     
-  // save I2C bitrate
-  uint8_t twbrbackup = TWBR;
-  // must be changed after calling Wire.begin() (inside pwm.begin())
-  TWBR = 12; // upgrade to 400KHz!
+
+  Wire.setClock(400000);// upgrade to 400KHz!  default 100KHz
+  //peut être commenté pour utiliser avec d'autres périphériques I2C (arpsensors inclus)
+  //may be commented to use with other I2C devices (arpsensors included)
+ 
 
   digitalWrite(LED_BUILTIN,HIGH);
 
