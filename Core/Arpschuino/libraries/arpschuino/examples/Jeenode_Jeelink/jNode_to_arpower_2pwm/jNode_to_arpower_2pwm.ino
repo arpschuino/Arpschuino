@@ -21,7 +21,7 @@
 byte NODEID = 2;  //Adresse RF
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
 
-uint8_t band = RF12_868MHZ; //frequence de l'emeteur RF12
+uint16_t band = RF12_868MHZ; //frequence de l'emeteur RF12
 //RF12_915MHZ America  // RF12_433MHZ
 
 float frequency_setting = 868.00; //beetween 863,00 > 870,00
