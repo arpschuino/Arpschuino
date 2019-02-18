@@ -23,7 +23,7 @@ int address;
 #include <ArpRFLib.h>
 uint8_t NODEID = 1;  
 #define NETWORKID  212  //adresse du reseau commune à toute les machine
-uint8_t band = RF12_868MHZ; //plage de frequence l'emeteur RF12 : RF12_868MHZ europe, 
+uint16_t band = RF12_868MHZ; //plage de frequence l'emeteur RF12 : RF12_868MHZ europe, 
 //RF12_915MHZ America 
 
 
@@ -46,8 +46,7 @@ void setup() {
 
   //readRF12EEPROM();
   rf12_read_EEPROM_band();
-  uint16_t frequency;
-  rf12_read_EEPROM_frequency();
+  uint16_t frequency = eeprom_read_word((uint16_t*) (RF12_EEPROM_ADDR + 4));
   //uint16_t frequency = EEPROM.get(0x24,frequency);
   nbre_circuits=EEPROM.read(0x004);
   if(nbre_circuits<2||nbre_circuits>66) nbre_circuits=16;
@@ -127,7 +126,9 @@ void setup() {
       ArduinoDmx0.set_control_pin(ArpDMXControl);   // Arduino output pin for MAX485 input/output control (connect to MAX485-1 pins 2-3) 
       ArduinoDmx0.set_rx_address(address);    // set tx start address
       ArduinoDmx0.set_rx_channels(nbre_circuits); // 2 to 512 in standard mode) See lib_dmx.h 
-      ArduinoDmx0.init_rx(DMX512);    
+      ArduinoDmx0.init_rx(DMX512);  
+
+      NODEID = 1;
   }
   rf12_initialize(NODEID, band, NETWORKID,frequency);
 }
