@@ -36,7 +36,7 @@ void setup() {
   pwm2.setPWMFreq(1600);  // This is the maximum PWM frequency
     
 
-  Wire.setClock(400000);// upgrade to 400KHz!  default 100KHz
+  //Wire.setClock(400000);// upgrade to 400KHz!  default 100KHz
   //peut être commenté pour utiliser avec d'autres périphériques I2C (arpsensors inclus)
   //may be commented to use with other I2C devices (arpsensors included)
  

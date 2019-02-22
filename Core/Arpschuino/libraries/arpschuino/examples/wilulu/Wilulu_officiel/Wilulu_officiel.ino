@@ -52,6 +52,8 @@ void setup() {
       if(!digitalRead(dip[i]))  identifiant += 1<<(i);
       digitalWrite(dip[i],LOW);  //desactivation des pullup
     }
+
+    
   //a commenter pour les 16 premiere adresses :    
   //identifiant+=16; //plus 16
 
