@@ -10,6 +10,7 @@
 
 
 1.0.6 25/01/18
+
 	Exemples wilulu :		Afin de preserver les accus li-ion, la wilulu se met en veille si la tension d'alimentation descend sous 2.9v
 
 	Debug des exemples rf12 :	calcul_freq 	remplacé par:	 rf12_calcul_freq
@@ -25,6 +26,7 @@
 
 
 1.0.5 : 12/01/19 
+
 	libary arpschuino :
 
 		nouveau nom : 		adress = address
