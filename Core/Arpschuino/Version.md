@@ -1,4 +1,11 @@
-﻿1.0.7 : 22/02/19
+﻿Vesion en cours de developpement :
+
+	Suppression de arpschuino_16_soft_PWM doublon précédament remplacé par arpschuino_16_softPWM (compatible avec la nouvelle version de softPWM)
+	
+	Suppression de notes-de-versions.txt (en doublon avec Version.md)
+
+
+1.0.7 : 22/02/19
 
     Debug des exemples rf12 :
 
