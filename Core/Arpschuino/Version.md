@@ -1,4 +1,6 @@
-﻿Vesion en cours de developpement :
+﻿Version en cours de developpement :
+
+	Exemple arpsensorsRF : arpsensorsRFsend5analog : debug, ajout d'une initialisation de Arp5 en output
 
 	Suppression de arpschuino_16_soft_PWM doublon précédament remplacé par arpschuino_16_softPWM (compatible avec la nouvelle version de softPWM)
 	
@@ -7,7 +9,7 @@
 
 1.0.7 : 22/02/19
 
-    Debug des exemples rf12 :
+    Debug des exemples rf12 : 
 
         uint8_t band remplacé par uint16_t band (risque de débordement)
 

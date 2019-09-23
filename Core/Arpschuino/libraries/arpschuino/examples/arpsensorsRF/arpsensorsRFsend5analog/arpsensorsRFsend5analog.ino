@@ -1,4 +1,18 @@
-#include <Arpschuino.h>
+/*
+ *ecrit pour l'arpsensorsRF (http://arpschuino.fr/arpsensorsRF.php)
+ *lit les valeurs de 5 capteurs analogiques (entrees 0 a 4)
+ *lit 16 fois les valeurs et envoies la moyenne par liaison radio (RF12)
+ *Clignote sur la sortie 5 a chaque emission
+ *recepteurs : wilulu, arpschuino+arpRF, Jeelink ...
+ *
+
+ *writen for arpsensorsRF (http://arpschuino.fr/arpsensorsRF_e.php)  
+ * reads the values of 5 analog sensors (inputs 0 to 4)
+ * reads 16 times the values and sends the average over the air (RF12)
+ * Blinks on output 5 with each broadcast
+ * receivers: wilulu, arpschuino arpRF, Jeelink ... 
+ */
+ 
 #include <ArpRFLib.h>
 
 byte NODEID = 1;  
@@ -12,11 +26,12 @@ float frequency_setting = 868.00; //beetween 863,00 > 870,00
 #define nbr_analog 5
 const byte analogIn [nbr_analog] ={A0,A1,A2,A3,A4};
 int sensVal[nbr_analog]={0};  //les valeurs analogiques a renvoyer
-
 bool var=0;
 
-void setup() {
+void setup() 
+{
     rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
+    pinMode(Arp5,OUTPUT);
 }
 
 void loop() {
@@ -40,5 +55,4 @@ void loop() {
   var = var-1;
   rf12_sendNow(0, &sensVal,nbr_analog);
   delay(10);
-
 }
