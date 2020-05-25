@@ -1,11 +1,26 @@
-﻿Version en cours de developpement :
+﻿Version en cours de développement (Version under development):
 
+	rien (nothing)
+
+
+
+1.0.8 : 25/05/20
+
+	FR :
+	Ajout de l'exemple : arpschuino_servo
 	Exemple arpsensorsRF : arpsensorsRFsend5analog : debug, ajout d'une initialisation de Arp5 en output
-
-	Suppression de arpschuino_16_soft_PWM doublon précédament remplacé par arpschuino_16_softPWM (compatible avec la nouvelle version de softPWM)
-	
+	Suppression de arpschuino_16_soft_PWM. Doublon précédemment remplacé par arpschuino_16_softPWM (compatible avec la nouvelle version de softPWM)	
 	Suppression de notes-de-versions.txt (en doublon avec Version.md)
-
+	A partir de maintenant, ces notes de version en français et en anglais
+	
+	
+	EN:
+	Adding the example: arpschuino_servo
+	Example arpsensorsRF: arpsensorsRFsend5analog: debug, addition of an initialization of Arp5 in output
+	Remove arpschuino_16_soft_PWM. duplicate previously replaced by arpschuino_16_softPWM (compatible with the new version of softPWM)
+	Removal of notes-from-versions.txt (duplicate with Version.md)
+	A partir de maintenant, ces notes de version en français et en anglais
+	
 
 1.0.7 : 22/02/19
 
