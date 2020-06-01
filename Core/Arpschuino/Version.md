@@ -6,7 +6,7 @@
 	
 	
 	EN:
-	Ajout de l'exemple : JNode1PWM_high_resolution
+	Adding the example: JNode1PWM_high_resolution
 	Header and layout of other JNodes codes renewed
 
 
