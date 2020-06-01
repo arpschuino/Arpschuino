@@ -1,7 +1,13 @@
 ﻿Version en cours de développement (Version under development):
 
-	rien (nothing)
-
+	FR :
+	Ajout de l'exemple : JNode1PWM_high_resolution
+	En-tête et mise en page des autres codes JNodes revus
+	
+	
+	EN:
+	Ajout de l'exemple : JNode1PWM_high_resolution
+	Header and layout of other JNodes codes renewed
 
 
 1.0.8 : 25/05/20
@@ -19,7 +25,7 @@
 	Example arpsensorsRF: arpsensorsRFsend5analog: debug, addition of an initialization of Arp5 in output
 	Remove arpschuino_16_soft_PWM. duplicate previously replaced by arpschuino_16_softPWM (compatible with the new version of softPWM)
 	Removal of notes-from-versions.txt (duplicate with Version.md)
-	A partir de maintenant, ces notes de version en français et en anglais
+	From now on, these release notes in French and in English
 	
 
 1.0.7 : 22/02/19

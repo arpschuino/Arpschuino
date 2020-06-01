@@ -1,12 +1,17 @@
-//reception JNode, ecriture dans l'arpower
-// work with "emeteur_arpschuino_officiel" or "emeteur_JLink_bridge_arp" as emiter
-//8 circuits gradués en softPWM
+//reception JNode, ecriture dans l'arpower.
+// S'utilise avec "emeteur_arpschuino_officiel" ou "emeteur_JLink_bridge_arp" comme emeteur.
+//8 circuits gradués en softPWM + LED de signal.
+//soties sur les 4 ports du JeeNode, out 1 a 8 de l'arpower avec JeeNode>arpower adapter http://www.arpschuino.fr/adapt_JNode.php
+//led temoin sur la sorie I, la LED sur le JNode>arpower² http://www.arpschuino.fr/adapt_JNode.php
 
-// JNode reception, writing in arpower
-// OK, works with [jee_link_to_JNode]
-//8 channels dimed by softPWM
+// JNode reception, writing in arpower.
+// Works with "emeteur_arpschuino_officiel" or "emeteur_JLink_bridge_arp" as transmitter.
+//8 channels dimed by softPWM PWM + signal LED.
+//output on the 4 ports of the JeeNode, out 1 to 8 on arpower with JeeNode>arpower adapter http://www.arpschuino.fr/adapt_JNode_e.php
+//signal led on JeeNode's I output, the LED on JNode>arpower² http://www.arpschuino.fr/adapt_JNode_e.php
 
 //http://www.arpschuino.fr
+
 
 #include <ArpRFLib.h>
 #include <Arpschuino.h>
@@ -42,43 +47,42 @@ SOFTPWM_DEFINE_CHANNEL( 7, DDRD, PORTD, PORTD4 );
 SOFTPWM_DEFINE_OBJECT( 8 );
 
 
-void setup() {
-  
+void setup() 
+{ 
     rf12_initialize(NODEID, band, NETWORKID,rf12_calcul_freq(frequency_setting));
-  pinMode (temoin, OUTPUT);// led temoin https://jeelabs.net/attachments/download/894/JeeNode%20Pinout%20Diagram.pdf
-  pinMode (4, OUTPUT);
-  pinMode (5, OUTPUT);
-  pinMode (6, OUTPUT);
-  pinMode (7, OUTPUT);
-  pinMode (14, OUTPUT);
-  pinMode (15, OUTPUT);
-  pinMode (16, OUTPUT);
-  pinMode (17, OUTPUT);  
-  
-  Palatis::SoftPWM.begin(180);
+    pinMode (temoin, OUTPUT);// led temoin https://jeelabs.net/attachments/download/894/JeeNode%20Pinout%20Diagram.pdf
+    pinMode (4, OUTPUT);
+    pinMode (5, OUTPUT);
+    pinMode (6, OUTPUT);
+    pinMode (7, OUTPUT);
+    pinMode (14, OUTPUT);
+    pinMode (15, OUTPUT);
+    pinMode (16, OUTPUT);
+    pinMode (17, OUTPUT);  
+    
+    Palatis::SoftPWM.begin(180);
 
 }
 
-void loop() {
-
-  if (rf12_recvDone() && rf12_crc == 0) {
-     Arp_led_temoin(temoin);
-     for(int i=0;i<8;i++)
-     { 
-        Palatis::SoftPWM.set(i, rf12_data[i+identifiant]); 
-     }
-
-     //delay(15);
-  }
-   else
-   {
-     unsigned long currentMillis = millis();     
-     if(currentMillis - previousMillis >= interval) 
-     {
-        // une seconde sans reception
-        previousMillis = currentMillis;   
-        digitalWrite(temoin,  LOW);      
-     }
-   }   
+void loop() 
+{
+    if (rf12_recvDone() && rf12_crc == 0) 
+    {
+       Arp_led_temoin(temoin);
+       for(int i=0;i<8;i++)
+       { 
+          Palatis::SoftPWM.set(i, rf12_data[i+identifiant]); 
+       }
+    }
+    else
+    {
+       unsigned long currentMillis = millis();     
+       if(currentMillis - previousMillis >= interval) 
+       {
+          // une seconde sans reception
+          previousMillis = currentMillis;   
+          digitalWrite(temoin,  LOW);      
+       }
+    }   
 }
      
